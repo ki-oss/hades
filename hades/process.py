@@ -29,7 +29,7 @@ import random
 import uuid
 from typing import Callable
 
-from .event import Event, ProcessUnregistered, SimulationStarted
+from hades.event import Event, ProcessUnregistered, SimulationStarted
 
 AddEventCallback = Callable[["Process", Event], None]
 
@@ -68,10 +68,7 @@ class Process:
         self.add_event_to_hades(self, event)
 
     async def notify(self, event: Event) -> NotificationResponse:
-        # TODO: perhaps add optional reasons to notification responses - e.g. to distinguish between different types of IGNORES
         raise NotImplementedError(f"notify must be implemented for {self.process_name} processes")
-
-    # TODO: scrape method exposing prometheus metrics belonging to the process
 
 
 class HadesInternalProcess(Process):

@@ -1,7 +1,7 @@
 """HADES Asynchronous Discrete-Event Simulation"""
-from .event import Event, ProcessUnregistered, SimulationStarted
-from .hades import Hades
-from .process import NotificationResponse, PredefinedEventAdder, Process, RandomProcess
+from hades.event import Event, ProcessUnregistered, SimulationStarted
+from hades.hades import Hades
+from hades.process import NotificationResponse, PredefinedEventAdder, Process, RandomProcess
 
 __all__ = [
     "Event",

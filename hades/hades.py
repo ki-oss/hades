@@ -10,8 +10,8 @@ from itertools import count
 from queue import Empty, PriorityQueue
 from typing import Iterable, List, Optional
 
-from .event import Event, ProcessUnregistered, SimulationStarted
-from .process import HadesInternalProcess, NotificationResponse, Process
+from hades.event import Event, ProcessUnregistered, SimulationStarted
+from hades.process import HadesInternalProcess, NotificationResponse, Process
 
 _logger = logging.getLogger(__name__)
 
