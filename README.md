@@ -1,3 +1,3 @@
 # Hades
 
-Hades Asynchronous Discrete Event Simulation
+Hades Asynchronous Discrete-Event Simulation
