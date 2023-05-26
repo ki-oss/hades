@@ -1,7 +1,6 @@
 from datetime import date
 
-from hades.event import Event, SimulationStarted
-from hades.process import NotificationResponse, Process
+from hades import Event, NotificationResponse, Process, SimulationStarted
 from hades.time.day_steps import datetime_to_step, step_to_date
 from hades.time.event import QuarterStarted, YearStarted
 

@@ -2,7 +2,7 @@ import calendar
 from datetime import date, datetime, timedelta
 from typing import Union
 
-EPOCH = datetime(1, 1, 1)  #
+EPOCH = datetime(1, 1, 1)
 
 
 def datetime_to_step(dt: Union[datetime, date]) -> int:

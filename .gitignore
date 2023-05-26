@@ -1,0 +1,46 @@
+# Allow list style .gitignore
+# root
+/*
+!.gitignore
+!README.md
+!LICENSE.md
+!poetry.lock
+!pyproject.toml
+!Makefile
+
+# hades/
+!hades/
+hades/*
+!hades/__init__.py
+!hades/visualisation.py
+
+# hades/core
+!hades/core
+hades/core/*
+!hades/core/event.py
+!hades/core/process.py
+!hades/core/hades.py
+
+# hades/time
+!hades/time
+hades/time/*
+!hades/time/__init__.py
+!hades/time/day_steps.py
+!hades/time/event.py
+!hades/time/logging.py
+!hades/time/process.py
+
+# tests
+!tests/
+tests/*
+!tests/__init__.py
+!tests/test_hades_performance.py
+
+
+# docs
+!docs/
+docs/*
+!docs/*.md
+
+# docs/examples
+!docs/examples
