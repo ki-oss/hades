@@ -158,7 +158,7 @@ class EncounterGenerator(hades.Process):
 
 async def run_sim():
     # change here to see how things go
-    underworld = hades.Hades(random_pomegranate_seed="Come, shades, I don't have all night!")
+    underworld = hades.core.hades(random_pomegranate_seed="Come, shades, I don't have all night!")
     player_process = NoobPlayer(Hero(hp=500, attack=15))
     mobs_process = NoobMobsAI(
         mobs=[
@@ -283,14 +283,14 @@ Bloodless1 smashed by Zagreus for 15 hp at step 30 and now has 10 hp left
 Zagreus got smashed and now has 255 remaining
 Bloodless1 smashed by Zagreus for 15 hp at step 31 and now has 0 hp left
 all mob died
-ERROR    ki_abv.framework.hades.hades:192  [0001-02-02] got additional exception (not raised) as part of batch from {"target_process": "NoobMobsAI", "target_process_instance": "4352455120", "event": "GameOver", "event_index": 0}
+ERROR    hades.core.hades:192  [0001-02-02] got additional exception (not raised) as part of batch from {"target_process": "NoobMobsAI", "target_process_instance": "4352455120", "event": "GameOver", "event_index": 0}
 Traceback (most recent call last):
   File "ki_abv/framework/hades/hades.py", line 190, in run
     raise exc
   File "boids.py", line 94, in notify
     raise ValueError(f"gameover because {gameover.reason} at step {gameover.t}")
 ValueError: gameover because all mob died at step 32
-ERROR    ki_abv.framework.hades.hades:192  [0001-02-02] got additional exception (not raised) as part of batch from {"target_process": "NoobPlayer", "target_process_instance": "4335836112", "event": "GameOver", "event_index": 0}
+ERROR    hades.core.hades:192  [0001-02-02] got additional exception (not raised) as part of batch from {"target_process": "NoobPlayer", "target_process_instance": "4335836112", "event": "GameOver", "event_index": 0}
 Traceback (most recent call last):
   File "ki_abv/framework/hades/hades.py", line 190, in run
     raise exc

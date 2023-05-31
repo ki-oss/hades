@@ -15,4 +15,8 @@ ci-lint:
 
 coverage:
 	coverage run -m pytest tests/
-	coverage report --fail-under=77 -m
+	coverage report --fail-under=100 -m
+
+
+serve-docs:
+	mkdocs serve --livereload

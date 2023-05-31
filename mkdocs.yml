@@ -1,0 +1,41 @@
+site_name: Hades
+theme:
+  name: "material"
+  logo: hades.png
+  favicon: hades.png
+  palette:
+    primary: black
+    accent: red
+plugins:
+  - search
+  - mkdocstrings
+markdown_extensions:
+  - footnotes
+  - admonition
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - toc:
+      permalink: true
+  - pymdownx.snippets
+  - pymdownx.inlinehilite
+extra_css:
+  - custom-styles.css
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+repo_url: https://github.com/ki-oss/hades
+repo_name: ki-oss/hades
+nav:
+  - Overview: index.md
+  - Components:
+    - Framework: core.md
+    - Time Utilities: time.md
+    - Visualisation: visualisation.md
+  - Design Justification: design-justification.md
+  - Tutorial: tutorial.md
+  - Examples:
+    - Hades 'the game': hades/examples/hades-game.md
+    - Boids: hades/examples/boids.md

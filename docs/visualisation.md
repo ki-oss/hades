@@ -8,6 +8,6 @@ An example of visualisation using process state can be seen in the [Boids Exampl
 However, since all event history is recorded, by `Hades` itself, the framework does provide some basic visualisation functions for understanding how the processes and events interact
 visually too. 
 
-::: ki_abv.framework.hades.visualisation
+::: hades.visualisation
 
 

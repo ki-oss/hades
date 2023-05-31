@@ -4,6 +4,8 @@ The entity doing the main body of work within the simulation is the `Process`. T
 That is to say: events are broadcast and handled asynchronously by the registered processes. 
 For justification of this see the [design justification](./design-justification.md).
 
+## Pattern matching events
+
 The pattern suggested for processes, is for the process to `match` events that it uses and respond with some sort of acknowledgement of what was done with the event. E.g.
 
 ```python
@@ -23,6 +25,35 @@ class MyProcess(Process):
                 return NotificationResponse.ACK
         return NotificationResponse.NO_ACK
 ```
+
+## Process Notifications and Asynchronous Handling
+
+The Hades Framework's core functionality involves handling and broadcasting events asynchronously. 
+The implementation uses Python's native asyncio library for task scheduling and execution. 
+All events for a given time-step are broadcast to all registered processes and handled independently within their context.
+
+## Asynchronous Behaviour and Data Consistency
+
+However, as powerful as this design pattern may be, it also introduces a certain level of complexity when dealing with shared data resources.
+
+Consider the scenario where multiple events are sent to a single process, and each event triggers modifications on a shared data resource, for example, a list within the process. Since all the events are handled asynchronously and independently, the order of execution is not guaranteed, and data inconsistency can arise due to race conditions.
+
+This is a critical aspect of using the Hades Framework: always ensure data consistency and thread-safety when designing your processes.
+
+### Managing Asynchronous Operations within Processes
+
+Here are some recommended ways to handle shared data within processes:
+
+* Use synchronization primitives: Python's asyncio library provides several synchronization primitives like locks (asyncio.Lock()) and semaphores (asyncio.Semaphore()). 
+Use these primitives to ensure only one coroutine within a process modifies the shared resource at any given time.
+* Immutable data structures: If possible, use immutable data structures. This eliminates the possibility of shared data being modified concurrently by different coroutines, thus avoiding race conditions.
+* Avoid shared state: Whenever possible, avoid using shared state within processes. Design your processes such that they work primarily with local data (from the event).
+
+see `tests/test_concurrency.py` for an example of this.
+
+!!! Note
+    There is no need to worry about this between processes (as they shouldn't share mutable state), only multiple events handled within the same process.
+
 """
 import enum
 import random

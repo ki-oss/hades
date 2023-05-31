@@ -49,13 +49,9 @@ class Event(BaseModel):
     @property
     def name(self):
         return self.__class__.__name__
-
-    def __hash__(self):
-        return hash(str(self.dict()))
-
+    
     class Config:
-        allow_mutation = False
-
+        frozen = True
 
 class SimulationStarted(Event):
     """special event issued by hades to kick off the sim"""

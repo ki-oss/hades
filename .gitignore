@@ -6,6 +6,7 @@
 !LICENSE.md
 !poetry.lock
 !pyproject.toml
+!mkdocs.yml
 !Makefile
 
 # hades/
@@ -30,11 +31,24 @@ hades/time/*
 !hades/time/logging.py
 !hades/time/process.py
 
+# examples
+
+!examples/
+examples/*
+!examples/battery_charging_station.py
+
 # tests
 !tests/
 tests/*
 !tests/__init__.py
 !tests/test_hades_performance.py
+!tests/test_event.py
+!tests/test_concurrency.py
+
+# tests/examples
+!tests/examples/
+tests/examples/*
+!tests/examples/test_battery_charging_station.py
 
 
 # docs

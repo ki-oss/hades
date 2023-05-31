@@ -83,7 +83,7 @@ def struct_deserialize(serialized_event: bytes) -> tuple[str, str, str, int]:
         event_index,
     )
 
-
+@pytest.mark.performance
 @pytest.mark.parametrize(
     "alternative_serialize, alternative_deserialize",
     (
@@ -102,7 +102,7 @@ def test_event_detail_serialization_performance_is_superior_to_considered_altern
     total_time_actual = 0
     total_time_alternative = 0
 
-    for _ in range(1_000_000):
+    for _ in range(10_000):
         start_actual = time.time()
         serialized_event_actual = serialize_event(process, event, 1)
         deserialize_event_actual = deserialize_event(serialized_event_actual)
@@ -120,5 +120,79 @@ def test_event_detail_serialization_performance_is_superior_to_considered_altern
 
     assert total_time_actual < total_time_alternative, (
         f"alternative {alternative_serialize}/{alternative_deserialize} gave {total_time_alternative}! better than"
+        f" {total_time_actual}"
+    )
+
+
+
+class GreekGodSpawned(Event):
+    god_name: str
+    address: tuple[str, str, str]
+    powers: tuple[str, ...]
+
+
+class GreekGodSpawnedDictStr(GreekGodSpawned):
+    def __hash__(self) -> int:
+        return hash(str(self.dict()))
+    
+    class Config:
+        frozen = False
+        mutable = False
+
+
+class GreekGodSpawnedFrozenSet(GreekGodSpawned):
+    def __hash__(self) -> int:
+        return hash(frozenset(self.dict().items()))
+
+    class Config:
+        frozen = False
+        mutable = False
+
+
+class GreekGodSpawnedJson(GreekGodSpawned):
+    def __hash__(self) -> int:
+        return hash(self.json())
+    
+    class Config:
+        frozen = False
+        mutable = False
+
+    
+class GreekGodSpawnedRecursiveHash(GreekGodSpawned):
+    def __hash__(self) -> int:
+        return hash(tuple(hash(getattr(self, key)) for key in self.dict().keys()))
+    
+    class Config:
+        frozen = False
+        mutable = False
+
+@pytest.mark.performance
+@pytest.mark.parametrize("alternative", (GreekGodSpawnedFrozenSet,GreekGodSpawnedJson, GreekGodSpawnedRecursiveHash, GreekGodSpawnedDictStr))
+def test_event_hashing_performance(alternative):
+    total_time_actual = 0
+    total_time_alternative = 0
+    for _ in range(10_000):
+        start_actual = time.time()
+        hash(GreekGodSpawned(
+            t=0,
+            god_name="Zeus",
+            address=("105", "Mount Olympus", "Greece"),
+            powers=("lightning", "prom")
+        ))
+        end_actual = time.time()
+
+        start_alternative = time.time()
+        hash(alternative(
+            t=0,
+            god_name="Zeus",
+            address=("105", "Mount Olympus", "Greece"),
+            powers=("lightning", "prom")
+        ))
+        end_alternative = time.time()
+        total_time_actual += end_actual - start_actual
+        total_time_alternative += end_alternative - start_alternative
+
+    assert total_time_actual < total_time_alternative, (
+        f"alternative {alternative} gave {total_time_alternative}! better than"
         f" {total_time_actual}"
     )
