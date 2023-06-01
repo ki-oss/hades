@@ -4,6 +4,7 @@
 !.gitignore
 !README.md
 !LICENSE.md
+!CONTRIBUTING.md
 !poetry.lock
 !pyproject.toml
 !mkdocs.yml
@@ -18,6 +19,7 @@ hades/*
 # hades/core
 !hades/core
 hades/core/*
+!hades/core/__init__.py
 !hades/core/event.py
 !hades/core/process.py
 !hades/core/hades.py
@@ -36,6 +38,9 @@ hades/time/*
 !examples/
 examples/*
 !examples/battery_charging_station.py
+!examples/boids.py
+!examples/readme_usage.py
+
 
 # tests
 !tests/
@@ -49,6 +54,7 @@ tests/*
 !tests/examples/
 tests/examples/*
 !tests/examples/test_battery_charging_station.py
+!tests/examples/test_readme_usage.py
 
 
 # docs

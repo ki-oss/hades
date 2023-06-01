@@ -1,34 +1,3 @@
-# Hades Framework
-
-![Version](https://img.shields.io/badge/version-1.0.0-blue)
-![License](https://img.shields.io/badge/License-MIT-blue.svg)
-
-**HADES** _(HADES Asynchronous Discrete-Event Simulation)_ is a small, user friendly framework for creating simulations in python!
-
-
-* 🎲🤖 **Supports both Agent Based and Process Based models** - how you model the entities in your simulation is up to you!
-* ⚡ **Async execution within a time-step** - makes working with distributed systems easy and makes improving simulation performance simple.
-* 🏷️ **Pydantic style events** - gives type hints and enforcement, making it easy to see what an event will contain and improving developer experience
-* 📦 **Encapsulated simulated processes** - processes or agents are encapsulated, keeping state manageable and processes easy to swap in or out
-* 😊 **User friendly** - pattern matching on pydantic based events makes for an intuitive way to build simulations, while the separation of state helps avoid potential footguns!
-
-## Installation
-```shell
-pip install hades-framework
-```
-
-## Usage
-Using the Hades Framework is as simple as creating your custom `processes` and `events`, registering them in the simulation, and letting Hades take care of the rest.
-
-A lot of real power of hades comes when you start combining it with processes which have an async element to them. See the other examples in the [documentation](https://github.io/ki-oss/hades) for a better idea of its strengths and weaknesses!
-
-* [LLoyds' with LLMs and Greek Gods (async in action)](https://github.io/ki-oss/hades/examples/boids)
-* [The classic Boids simulation (CPU bound stuff hades is less good at)](https://github.io/ki-oss/hades/examples/boids)
-* [Battery charing station (simpy shared resources comparison)](https://github.io/ki-oss/hades/examples/battery-charging-station)
-
-Here is a very simple example where we simulate Zeus sending lightning bolts and Poseidon creating storms, both potentially affecting the life of Odysseus:
-
-```python
 import asyncio
 from enum import Enum
 
@@ -111,17 +80,17 @@ class Odysseus(RandomProcess):
 
     async def notify(self, event: Event):
         match event:
-            case LightningBoltThrown(t=t, target_id=target_id):
+            case LightningBoltThrown(t=t):
                 if self.status == HeroLifeCycleStage.DECEASED:
                     return NotificationResponse.ACK_BUT_IGNORED
                 self._handle_peril(t, 90, "Zeus' lightning bolt")
                 return NotificationResponse.ACK
-            case StormCreated(t=t, target_id=target_id):
-                if target_id != self.instance_identifier or self.status == HeroLifeCycleStage.DECEASED:
+            case StormCreated(t=t):
+                if self.status == HeroLifeCycleStage.DECEASED:
                     return NotificationResponse.ACK_BUT_IGNORED
                 self._handle_peril(t, 50, "Poseidon's storm")
                 return NotificationResponse.ACK
-            case AthenaIntervenes(t=t, target_id=target_id):
+            case AthenaIntervenes(t=t):
                 print("but athena intervened saving and healing odysseus to 100")
                 self._health = 100
                 self.status = HeroLifeCycleStage.SAFE
@@ -140,11 +109,3 @@ async def odyssey():
 
 if __name__ == "__main__":
     asyncio.run(odyssey())
-```
-
-You might already think how you might be able to extend this - having additional 
-
-
-## Contribution
-We'd love for you to contribute to the Hades Framework! Please check out our [contribution guidelines](./CONTRIBUTING.md) for more details.
-

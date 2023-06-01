@@ -1,6 +1,7 @@
-from hades import Hades, Event, Process, NotificationResponse
-
 import asyncio
+
+from hades import Event, Hades, NotificationResponse, Process
+
 
 class EventOne(Event):
     pass

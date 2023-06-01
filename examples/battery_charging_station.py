@@ -5,12 +5,9 @@ The key things to note are that the queue of waiting cars happens in the process
 
 This means the state of the battery charging station contains a lot of useful information, but results in slightly less terse code and more logic within it.
 """
-from hades import Hades, NotificationResponse, Process, Event
-
 import asyncio
 
-from hades import PredefinedEventAdder
-
+from hades import Event, Hades, NotificationResponse, PredefinedEventAdder, Process
 
 
 class CarArrives(Event):
@@ -44,7 +41,7 @@ class BatteryChargingStation(Process):
                 return NotificationResponse.ACK
             case CarStartsCharging(t=t, car_id=car_id):
                 print(f"Car {car_id} starting to charge at {t}")
-                self.add_event(CarLeaves(t=t+self.charging_duration, car_id=car_id))
+                self.add_event(CarLeaves(t=t + self.charging_duration, car_id=car_id))
                 return NotificationResponse.ACK
             case CarLeaves(t=t, car_id=car_id):
                 print(f"Car {car_id} leaving the bcs at {t}")
@@ -54,7 +51,7 @@ class BatteryChargingStation(Process):
                     self.currently_charging.add(next_car)
                     self.add_event(CarStartsCharging(t=t, car_id=next_car))
                 return NotificationResponse.ACK
-        return NotificationResponse.NO_ACK
+        return NotificationResponse.NO_ACK 
 
 
 async def bcs():
@@ -63,12 +60,11 @@ async def bcs():
     hades.register_process(bcs)
 
     # Creating events for cars arriving at the battery charging station
-    events: list[CarArrives] = [CarArrives(t=2*i, car_id=i) for i in range(4)]
+    events: list[CarArrives] = [CarArrives(t=2 * i, car_id=i) for i in range(4)]
     event_adder = PredefinedEventAdder(predefined_events=events, name="car arrivals")
     hades.register_process(event_adder)
     await hades.run()
 
+
 if __name__ == "__main__":
     asyncio.run(bcs())
-
-

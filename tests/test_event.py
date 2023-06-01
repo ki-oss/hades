@@ -1,5 +1,7 @@
-from hades import Event
 import pytest
+
+from hades import Event
+
 
 def test_event_immutability():
     event = Event(t=0)

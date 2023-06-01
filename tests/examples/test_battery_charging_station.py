@@ -1,5 +1,5 @@
-from examples.battery_charging_station import bcs
 import pytest
+from examples.battery_charging_station import bcs
 
 
 @pytest.mark.example
