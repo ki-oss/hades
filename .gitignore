@@ -37,11 +37,19 @@ hades/time/*
 
 !examples/
 examples/*
+!examples/__init__.py
 !examples/battery_charging_station.py
 !examples/boids.py
 !examples/readme_usage.py
-!examples/multi_agent_llm_dialogues.py
-
+!examples/multi_agent_llm_dialogues/
+examples/multi_agent_llm_dialogues/*
+!examples/multi_agent_llm_dialogues/__init__.py
+!examples/multi_agent_llm_dialogues/events.py
+!examples/multi_agent_llm_dialogues/processes.py
+!examples/multi_agent_llm_dialogues/prompts.py
+!examples/multi_agent_llm_dialogues/simulation.py
+!examples/multi_agent_llm_dialogues/utilities.py
+!examples/multi_agent_llm_dialogues/output.txt
 
 # tests
 !tests/
@@ -56,7 +64,6 @@ tests/*
 tests/examples/*
 !tests/examples/test_battery_charging_station.py
 !tests/examples/test_readme_usage.py
-
 
 # docs
 !docs/
