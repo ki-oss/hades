@@ -32,6 +32,11 @@ mkdocstrings = {extras = ["python"], version = "^0.22.0"}
 mkdocs = "^1.4.3"
 mkdocs-material = "^9.1.15"
 pymdown-extensions = "^10.0.1"
+openai = "^0.27.7"
+httpx = "^0.24.1"
+tiktoken = ">=0.3.0"
+gpt-json = "^0.1.10"
+feedparser = "^6.0.10"
 
 [tool.poetry.extras]
 visualisation = ["networkx", "networkx-stubs"]

@@ -40,6 +40,7 @@ examples/*
 !examples/battery_charging_station.py
 !examples/boids.py
 !examples/readme_usage.py
+!examples/multi_agent_llm_dialogues.py
 
 
 # tests

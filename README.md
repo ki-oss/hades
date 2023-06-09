@@ -22,7 +22,7 @@ Using the Hades Framework is as simple as creating your custom `processes` and `
 
 A lot of real power of hades comes when you start combining it with processes which have an async element to them. See the other examples in the [documentation](https://github.io/ki-oss/hades) for a better idea of its strengths and weaknesses!
 
-* [LLoyds' with LLMs and Greek Gods (async in action)](https://github.io/ki-oss/hades/examples/boids)
+* [Greek Gods talk current events with LLMs (IO bound stuff hades is good at)](https://github.io/ki-oss/hades/examples/boids)
 * [The classic Boids simulation (CPU bound stuff hades is less good at)](https://github.io/ki-oss/hades/examples/boids)
 * [Battery charing station (simpy shared resources comparison)](https://github.io/ki-oss/hades/examples/battery-charging-station)
 

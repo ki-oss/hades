@@ -65,9 +65,9 @@ class Hades:
         self.event_queue.put(queue_event)
 
     def register_process(self, process: Process):
-        if process.instance_identifier == -1:
+        if process.instance_identifier == "-1":
             process._random_process_identifier = self.random.getrandbits(128)
-            
+
         for existing_process in self._processes:
             if (
                 existing_process.instance_identifier == process.instance_identifier
