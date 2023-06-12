@@ -1,8 +1,8 @@
 import asyncio
 
-from hades import Hades
+from examples.multi_agent_llm_storytelling.processes import GreekGod, Homer, Odysseus
 
-from examples.multi_agent_llm_dialogues.processes import GreekGod, Homer, Odysseus
+from hades import Hades
 
 
 async def simulate():

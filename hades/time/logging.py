@@ -1,21 +1,18 @@
 import logging
-import sys
 
+from hades.core.hades import Hades
+from hades.logging import HadesFilter, setup_step_logging
 from hades.time.day_steps import step_to_date
 
 
-class HadesEventFilter(logging.Filter):
-    """prepend logs with the world date"""
-
-    def __init__(self, world) -> None:
-        super().__init__()
-        self.world = world
-
+class HadesDateFilter(HadesFilter):
     def filter(self, record):
-        record.world_date = step_to_date(self.world.t)
-        return True
+        setattr(record, "world_date", step_to_date(self._hades.t))
+        return super().filter(record)
 
 
-formatter = logging.Formatter("%(levelname)-8s %(name)s:%(lineno)-4d [%(world_date)s] %(message)s")
-syslog = logging.StreamHandler(stream=sys.stdout)
-syslog.setFormatter(formatter)
+def setup_date_logging(
+    hades: Hades,
+    fmt: str = "%(levelname)-8s %(name)s:%(lineno)-4d [%(world_date)s] %(message)s",
+):
+    setup_step_logging(hades, fmt, HadesDateFilter)

@@ -56,6 +56,7 @@ see `tests/test_concurrency.py` for an example of this.
 
 """
 import enum
+import logging
 import random
 import uuid
 from typing import Callable
@@ -72,9 +73,12 @@ class NotificationResponse(enum.Enum):
 
 
 class Process:
+
     def __init__(self) -> None:
         self.add_event_to_hades: None | AddEventCallback = None
         self._random_process_identifier: int = -1
+        self._str: str | None = None
+
 
     @property
     def process_name(self):
@@ -89,8 +93,12 @@ class Process:
         return str(self._random_process_identifier)
 
     def __str__(self) -> str:
-        return f"process: {self.process_name}, instance: {self.instance_identifier}"
-
+        if self._random_process_identifier != -1:
+            return f"process: {self.process_name}, instance: {self.instance_identifier}"
+        if self._str is None:
+            self._str = f"process: {self.process_name}, instance: {self.instance_identifier}"
+        return self._str
+    
     def add_event(self, event: Event):
         if self.add_event_to_hades is None:
             raise ValueError(
@@ -112,7 +120,7 @@ class HadesInternalProcess(Process):
 
 
 class PredefinedEventAdder(Process):
-    """adds some predefined events to hades then unregisters itself"""
+    """adds some predefined events to hades then unregisters itself to avoid any overhead"""
 
     def __init__(self, predefined_events: list[Event], name: str) -> None:
         super().__init__()

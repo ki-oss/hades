@@ -23,6 +23,7 @@ hades/core/*
 !hades/core/event.py
 !hades/core/process.py
 !hades/core/hades.py
+!hades/logging.py
 
 # hades/time
 !hades/time
@@ -41,29 +42,41 @@ examples/*
 !examples/battery_charging_station.py
 !examples/boids.py
 !examples/readme_usage.py
-!examples/multi_agent_llm_dialogues/
-examples/multi_agent_llm_dialogues/*
-!examples/multi_agent_llm_dialogues/__init__.py
-!examples/multi_agent_llm_dialogues/events.py
-!examples/multi_agent_llm_dialogues/processes.py
-!examples/multi_agent_llm_dialogues/prompts.py
-!examples/multi_agent_llm_dialogues/simulation.py
-!examples/multi_agent_llm_dialogues/utilities.py
-!examples/multi_agent_llm_dialogues/output.txt
+!examples/multi_agent_llm_storytelling/
+examples/multi_agent_llm_storytelling/*
+!examples/multi_agent_llm_storytelling/__init__.py
+!examples/multi_agent_llm_storytelling/events.py
+!examples/multi_agent_llm_storytelling/processes.py
+!examples/multi_agent_llm_storytelling/prompts.py
+!examples/multi_agent_llm_storytelling/simulation.py
+!examples/multi_agent_llm_storytelling/utilities.py
+!examples/multi_agent_llm_storytelling/output.txt
 
 # tests
 !tests/
 tests/*
 !tests/__init__.py
+!tests/test_hades.py
 !tests/test_hades_performance.py
 !tests/test_event.py
 !tests/test_concurrency.py
+!tests/test_logging.py
+!tests/test_process.py
 
 # tests/examples
 !tests/examples/
 tests/examples/*
 !tests/examples/test_battery_charging_station.py
 !tests/examples/test_readme_usage.py
+
+# tests/time
+!tests/time/
+tests/time/*
+!tests/time/__init__.py
+!tests/time/test_day_steps.py
+!tests/time/test_logging.py
+!tests/time/test_process.py
+!tests/time/test_event.py
 
 # docs
 !docs/

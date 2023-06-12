@@ -1,7 +1,6 @@
 import asyncio
 import json
 import logging
-import random
 from typing import Union
 
 from pydantic import BaseModel
@@ -226,6 +225,8 @@ class Boid(Process):
                     self._target_worm = None
                     return NotificationResponse.ACK
                 return NotificationResponse.ACK_BUT_IGNORED
+        if "Boid" in event.name:
+            breakpoint()
         return NotificationResponse.NO_ACK
 
 
@@ -341,13 +342,12 @@ class BoidMovementHistory(Process):
         </body>
         """
 
-
 async def run_sim():
     run_till = 1000
     num_boids = 50
     grid_size = (1000, 1000)
 
-    hades = Hades(random_pomegranate_seed="Reynolds")
+    hades = Hades(random_pomegranate_seed="Reynolds", record_results=False, use_no_ack_cache=True)
     hades.register_process(
         process=PredefinedEventAdder(
             predefined_events=[

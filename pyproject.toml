@@ -66,6 +66,9 @@ ignore_missing_imports = "True"
 asyncio_mode = "auto"
 markers = ["performance", "example"]
 
+[tool.coverage.run]
+source = ["hades"]
+
 [tool.importlinter]
 root_package = "hades"
 

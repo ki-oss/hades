@@ -5,16 +5,16 @@ from typing import Union
 EPOCH = datetime(1, 1, 1)
 
 
-def datetime_to_step(dt: Union[datetime, date]) -> int:
+def datetime_to_step(dt: Union[datetime, date], epoch: datetime = EPOCH) -> int:
     """datetime or date as days since epoch"""
     if not isinstance(dt, datetime):
         return datetime_to_step(datetime.fromisoformat(dt.isoformat()))
-    return int((dt - EPOCH).total_seconds() // timedelta(days=1).total_seconds())
+    return int((dt - epoch).total_seconds() // timedelta(days=1).total_seconds())
 
 
-def step_to_datetime(step: int) -> datetime:
+def step_to_datetime(step: int, epoch: datetime = EPOCH) -> datetime:
     """days since epoch as datetime"""
-    return EPOCH + timedelta(days=step)
+    return epoch + timedelta(days=step)
 
 
 def step_to_date(step: int) -> date:

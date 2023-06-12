@@ -1,8 +1,11 @@
+import logging
 from datetime import date
 
 from hades import Event, NotificationResponse, Process, SimulationStarted
 from hades.time.day_steps import datetime_to_step, step_to_date
 from hades.time.event import QuarterStarted, YearStarted
+
+_logger = logging.getLogger(__name__)
 
 
 class YearStartScheduler(Process):
@@ -17,7 +20,8 @@ class YearStartScheduler(Process):
 
     async def notify(self, event: Event) -> NotificationResponse:
         match event:
-            case SimulationStarted(t=t):
+            case SimulationStarted(t=t) as e:
+                _logger.debug("adding look ahead YearStarted events between %d and %d due to %s", self._start_year, self._look_ahead_years + self._start_year, repr(e))
                 for year in range(self._start_year, self._look_ahead_years + self._start_year):
                     self.add_event(YearStarted(t=datetime_to_step(date(year, 1, 1))))
                 self._latest_year_added = self._look_ahead_years + self._start_year - 1
@@ -26,12 +30,13 @@ class YearStartScheduler(Process):
                 return NotificationResponse.ACK_BUT_IGNORED
             case QuarterStarted():
                 return NotificationResponse.ACK_BUT_IGNORED
-            case Event(t=t):
+            case Event(t=t) as e:
                 # ensure that we keep the look ahead window maintained given other events
                 if (
                     self._latest_year_added is not None
                     and (current_year := step_to_date(t).year) > self._latest_year_added - self._look_ahead_years + 1
                 ):
+                    _logger.debug("adding look ahead YearStarted events between %d and %d due to %s", self._latest_year_added + 1, current_year + self._look_ahead_years, repr(e))
                     for year in range(self._latest_year_added + 1, current_year + self._look_ahead_years):
                         self.add_event(YearStarted(t=datetime_to_step(date(year, 1, 1))))
                         self._latest_year_added = year

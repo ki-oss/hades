@@ -49,9 +49,7 @@ class Event(BaseModel):
     @property
     def name(self):
         return self.__class__.__name__
-    
-    # def __hash__(self) -> int:
-    #     return hash(str(self.dict()))
+  
     class Config:
         frozen = True
 
