@@ -1,8 +1,7 @@
 import asyncio
-import json
 import logging
+from asyncio.exceptions import TimeoutError
 
-import pytest
 import websockets
 from websockets.exceptions import ConnectionClosedOK
 

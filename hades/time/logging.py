@@ -1,5 +1,3 @@
-import logging
-
 from hades.core.hades import Hades
 from hades.logging import HadesFilter, setup_step_logging
 from hades.time.day_steps import step_to_date

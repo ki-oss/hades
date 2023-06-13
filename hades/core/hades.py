@@ -9,8 +9,7 @@ import logging
 import random
 from itertools import count, product
 from queue import Empty, PriorityQueue
-from types import FrameType
-from typing import Any, Coroutine, Generator, Iterator
+from typing import Any, Coroutine
 
 from hades.core.event import Event, ProcessUnregistered, SimulationStarted
 from hades.core.process import HadesInternalProcess, NotificationResponse, Process

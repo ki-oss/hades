@@ -1,5 +1,5 @@
 import logging
-from typing import Protocol, Type
+from typing import Type
 
 from hades.core.hades import Hades
 

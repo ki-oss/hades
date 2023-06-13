@@ -38,6 +38,7 @@ httpx = "^0.24.1"
 tiktoken = ">=0.3.0"
 gpt-json = "^0.1.10"
 feedparser = "^6.0.10"
+pycln = "^2.1.5"
 
 [tool.poetry.extras]
 visualisation = ["networkx", "networkx-stubs", "websockets"]

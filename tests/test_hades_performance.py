@@ -1,6 +1,3 @@
-import json
-import pickle
-import struct
 import time
 
 import pytest

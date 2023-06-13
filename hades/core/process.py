@@ -58,7 +58,6 @@ Example of this:
 ```
 """
 import enum
-import logging
 import random
 import uuid
 from typing import Callable
