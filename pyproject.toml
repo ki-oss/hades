@@ -2,7 +2,7 @@
 name = "hades"
 version = "1.0.0"
 description = "Hades Asynchronous Discrete-Event Simulation"
-authors = ["Ki Insurance Team", "Reuben Thomas-Davis <Reuben.Thomas-Davis@ki-insurance.com>"]
+authors = ["Ki Insurance Team", "Reuben Thomas-Davis <Reuben.Thomas-Davis@ki-insurance.com>", "Keith Kam <keith.kam@accenture.com>"]
 license = "Apache 2.0"
 readme = "README.md"
 packages = [

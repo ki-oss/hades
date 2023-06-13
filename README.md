@@ -170,3 +170,10 @@ We'd love for you to contribute to the Hades Framework! Please check out our [co
 * Support for neo4j visualisation and inspection
 * Typescript code generation based on pydantic event models to better support building custom frontends via `HadesWS`
 * Support for meta configuration and parametrisations over multiple runs to enable montecarlo style simulations
+
+
+## Acknowledgements
+
+* [Keith Kam](https://github.com/keith-acn) - contributed performance improvements and tracking of causation events
+* [Zhe Feng](https://github.com/zhe-ki) - review and testing
+* [Sedar Olmez](https://github.com/OlmezKi) and [Akhil Ahmed](https://github.com/akhila819-ki) - usage and testing through academic research
