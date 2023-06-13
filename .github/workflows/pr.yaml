@@ -27,8 +27,8 @@ jobs:
 
     - name: Ensure Linted
       run: |
-        make ci-lint
+        poetry run make ci-lint
 
     - name: Run Coverage
       run: |
-        make coverage
+        poetry run make coverage
