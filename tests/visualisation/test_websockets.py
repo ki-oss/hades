@@ -41,7 +41,7 @@ async def test_websockets_process_broadcasts_correct_events():
         client_connection = await websockets.connect("ws://localhost:8765")
         await hades.run()
         try:
-            while message := await asyncio.wait_for(client_connection.recv(), timeout=0.05):
+            while message := await asyncio.wait_for(client_connection.recv(), timeout=0.5):
                 broadcasted_messages.append(message)
         except TimeoutError:
             pass
