@@ -1,4 +1,3 @@
-
 homer_prompt = """
 You are the writer Homer chronicling the adventures of a greek hero Odysseus.
 

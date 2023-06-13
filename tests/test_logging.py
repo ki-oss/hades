@@ -1,4 +1,3 @@
-
 import logging
 
 from hades import Hades
@@ -13,15 +12,17 @@ async def test_process_with_hades_logger_adapter(caplog):
 
     hades.register_process(YearStartScheduler(start_year=2023, look_ahead_years=2))
     await hades.run()
-    assert caplog.text == """INFO     hades.core.hades [t=0] registered process: YearStartScheduler, instance: 332231294394531790607923355838092946842
+    assert (
+        caplog.text
+        == """INFO     hades.core.hades [t=0] registered process: YearStartScheduler, instance: 332231294394531790607923355838092946842
 INFO     hades.core.hades [t=0] registered process: HadesInternalProcess, instance: 7836064115094481643618470001379502846
-DEBUG    hades.core.hades [t=0] adding SimulationStarted from process: HadesInternalProcess, instance: 7836064115094481643618470001379502846 to queue
+DEBUG    hades.core.hades [t=0] adding SimulationStarted from process: HadesInternalProcess, instance: 7836064115094481643618470001379502846 (caused by None) to queue
 DEBUG    hades.core.hades [t=0] getting events for next timestamp
 DEBUG    hades.core.hades [t=0] added event=SimulationStarted(t=0) to next events batch
 DEBUG    hades.core.hades [t=0] got 1 events at time 0
 DEBUG    hades.time.process [t=0] adding look ahead YearStarted events between 2023 and 2025 due to SimulationStarted(t=0)
-DEBUG    hades.core.hades [t=0] adding YearStarted from process: YearStartScheduler, instance: 332231294394531790607923355838092946842 to queue
-DEBUG    hades.core.hades [t=0] adding YearStarted from process: YearStartScheduler, instance: 332231294394531790607923355838092946842 to queue
+DEBUG    hades.core.hades [t=0] adding YearStarted from process: YearStartScheduler, instance: 332231294394531790607923355838092946842 (caused by None) to queue
+DEBUG    hades.core.hades [t=0] adding YearStarted from process: YearStartScheduler, instance: 332231294394531790607923355838092946842 (caused by None) to queue
 DEBUG    hades.core.hades [t=0] completed task notify process: YearStartScheduler, instance: 332231294394531790607923355838092946842 of t=0 from process: HadesInternalProcess, instance: 7836064115094481643618470001379502846 with result NotificationResponse.ACK
 DEBUG    hades.core.hades [t=0] completed task notify process: HadesInternalProcess, instance: 7836064115094481643618470001379502846 of t=0 from process: HadesInternalProcess, instance: 7836064115094481643618470001379502846 with result NotificationResponse.NO_ACK
 DEBUG    hades.core.hades [t=0] getting events for next timestamp
@@ -40,3 +41,4 @@ DEBUG    hades.core.hades [t=738885] getting events for next timestamp
 DEBUG    hades.core.hades [t=738885] got 0 events at time 738885
 INFO     hades.core.hades [t=738885] ending run as we have exhausted the queue of events!
 """
+    )

@@ -49,11 +49,13 @@ Use these primitives to ensure only one coroutine within a process modifies the 
 * Immutable data structures: If possible, use immutable data structures. This eliminates the possibility of shared data being modified concurrently by different coroutines, thus avoiding race conditions.
 * Avoid shared state: Whenever possible, avoid using shared state within processes. Design your processes such that they work primarily with local data (from the event).
 
-see `tests/test_concurrency.py` for an example of this.
-
 !!! Note
     There is no need to worry about this between processes (as they shouldn't share mutable state), only multiple events handled within the same process.
 
+Example of this:
+```python
+--8<-- "tests/test_concurrency.py"
+```
 """
 import enum
 import logging
@@ -73,12 +75,10 @@ class NotificationResponse(enum.Enum):
 
 
 class Process:
-
     def __init__(self) -> None:
         self.add_event_to_hades: None | AddEventCallback = None
         self._random_process_identifier: int = -1
         self._str: str | None = None
-
 
     @property
     def process_name(self):
@@ -87,8 +87,8 @@ class Process:
     @property
     def instance_identifier(self) -> str:
         """
-        unique identifier for the process. This does not need to be globally unique for items in memory (like id()) say
-        however, multiple instances of a given process_name with the same instance identifier will not be allowed across the styx (into hades)
+        unique identifier for the process. This does not need to be globally unique however, multiple instances of a given process_name
+        with the same instance identifier will not be allowed across the styx (into hades)
         """
         return str(self._random_process_identifier)
 
@@ -98,7 +98,7 @@ class Process:
         if self._str is None:
             self._str = f"process: {self.process_name}, instance: {self.instance_identifier}"
         return self._str
-    
+
     def add_event(self, event: Event):
         if self.add_event_to_hades is None:
             raise ValueError(
@@ -142,9 +142,12 @@ class PredefinedEventAdder(Process):
 
 
 class RandomProcess(Process):
+    """a process which adds a .random attribute with the given seed"""
+
     def __init__(self, seed: str | None) -> None:
         super().__init__()
         self.random = random.Random(seed or self._random_process_identifier)
 
     def _generate_uuid(self, version: int = 4) -> uuid.UUID:
+        """generate a uuid using the random seed"""
         return uuid.UUID(int=self.random.getrandbits(128), version=version)

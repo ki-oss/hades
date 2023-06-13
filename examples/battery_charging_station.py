@@ -1,10 +1,3 @@
-"""
-This example highlights some interesting differences between hades and simpy based on their [Shared Resources example](https://simpy.readthedocs.io/en/latest/simpy_intro/shared_resources.html).
-
-The key things to note are that the queue of waiting cars happens in the process rather than making use of a shared resource.
-
-This means the state of the battery charging station contains a lot of useful information, but results in slightly less terse code and more logic within it.
-"""
 import asyncio
 
 from hades import Event, Hades, NotificationResponse, PredefinedEventAdder, Process
@@ -51,7 +44,7 @@ class BatteryChargingStation(Process):
                     self.currently_charging.add(next_car)
                     self.add_event(CarStartsCharging(t=t, car_id=next_car))
                 return NotificationResponse.ACK
-        return NotificationResponse.NO_ACK 
+        return NotificationResponse.NO_ACK
 
 
 async def bcs():

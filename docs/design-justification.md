@@ -5,8 +5,8 @@
 The goal from which HADES originates is that of creating a framework which makes it easy to simulate how an insurance company's portfolio would 
 change over time given different scenarios. As these scenarios get more complex, problems begin to emerge:
 
-1. How can we handle state in a manageable way - e.g. needing to track which policies we have written and claim incurred in a simulated book to impact future portfolio management
-1. We begin coming across situations where we need to do simulation. E.g. If one thing changes in the past, we can't ignore its effect on things which come after it. 
+1. It becomes difficult to track state in a manageable way - e.g. needing to track which policies we have written and claims incurred in a simulated book to impact future portfolio management
+1. We begin coming across situations where we need to do simulation E.g. If one thing changes in the past, we can't ignore its effect on things which come after it. 
 
 ## Requirements
 
@@ -68,13 +68,13 @@ However upon experimenting with it a little I found a few issues with it regardi
 
 From a technical perspective, 2.a would have been a bit difficult to achieve. This is because `Environment.process`, `start_delayed` etc are 'sync' coloured and I was considering that the best way to achieve 2.a and 2.b would be to gather events occurring at the same time-step so that they are executed asynchronously, allowing distributed elements to handle the concurrent processing. However this could probably be overcome by either subclassing/extending or using a fork called μSim[^4]. 
 
-More importantly though, having experiment with it for a while the user experience seemed like it would be suboptimal. 
+More importantly though, having experimented with it for a while the user experience seemed like it would be suboptimal. 
 
 Firstly, the `yield` keyword's behaviour is not always intuitive and anything which adds to cognitive load or makes the framework less accessible to newer to python users subtracts from 3.a. 
 
 Secondly the way processes need communicate is either by having references to each other. E.g. in order for process `a` to call process `b`, we must pass a reference to `a` e.g. `a(b)`.  This means that there is an implicit hierarchy built into any design which makes achieving 3.b harder. 
 
-Thirdly, there is no clean encapsulation of state. Classes in the documentation may include multiple processes[^5] (so they can reference one another easier), or share state by mutating some mutable object passed to multiple functional processes by reference[^6]. Violating 3.c
+Thirdly, how to manage state best is a little unclear. Classes in the documentation may include multiple processes[^5] (so they can reference one another easier), or share state by mutating some mutable object passed to multiple functional processes by reference[^6]. Violating 3.c
 
 ### Taking notes from Game Development
 

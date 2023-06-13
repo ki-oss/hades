@@ -18,6 +18,7 @@ python = "^3.10"
 pydantic = "^1.10.8"
 networkx = {version = "^3.1", optional = true}
 networkx-stubs = {version = "^0.0.1", optional = true}
+websockets = "^11.0.3"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.3.1"
@@ -39,7 +40,7 @@ gpt-json = "^0.1.10"
 feedparser = "^6.0.10"
 
 [tool.poetry.extras]
-visualisation = ["networkx", "networkx-stubs"]
+visualisation = ["networkx", "networkx-stubs", "websockets"]
 
 [build-system]
 requires = ["poetry-core"]
@@ -49,6 +50,7 @@ build-backend = "poetry.core.masonry.api"
 line-length = 120
 target-version = ['py310']
 include = '\.pyi?$'
+exclude = "docs"
 
 [tool.isort]
 profile = "black"

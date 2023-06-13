@@ -12,7 +12,6 @@ def test_event_immutability():
     assert event.t == 0
 
 
-
 def test_event_hashable():
     class SomeEvent(Event):
         a: int
@@ -31,4 +30,5 @@ def test_event_hashable():
 def test_event_has_class_name_as_name_attr():
     class SomeEvent(Event):
         pass
+
     assert SomeEvent(t=1).name == "SomeEvent"

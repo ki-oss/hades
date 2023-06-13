@@ -38,5 +38,6 @@ async def test_predefined_event_adder_adds_events_to_hades():
 
 
 async def test_predefined_event_adder_ignores_events_other_than_simulation_started():
-    assert await PredefinedEventAdder(predefined_events=[], name="blah").notify(Event(t=1)) == NotificationResponse.NO_ACK
-
+    assert (
+        await PredefinedEventAdder(predefined_events=[], name="blah").notify(Event(t=1)) == NotificationResponse.NO_ACK
+    )

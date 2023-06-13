@@ -1,4 +1,5 @@
 import logging
+from unittest.mock import patch
 
 import pytest
 
@@ -18,15 +19,17 @@ class UniqueProcess(Process):
     @property
     def instance_identifier(self) -> str:
         return "unicorn"
-    
+
     async def notify(self, event: Event):
         return NotificationResponse.NO_ACK
+
 
 def test_cannot_add_duplicate_processes():
     h = Hades()
     h.register_process(UniqueProcess())
     with pytest.raises(ValueError):
         h.register_process(UniqueProcess())
+
 
 async def test_processes_raising_the_process_unregistered_get_unregistered():
     h = Hades()
@@ -36,10 +39,14 @@ async def test_processes_raising_the_process_unregistered_get_unregistered():
     await h.run()
     assert [type(p) for p in h._processes] == [HadesInternalProcess]
 
+
 class E1(Event):
     pass
+
+
 class E2(Event):
     pass
+
 
 async def test_no_ack_cache_does_not_call_processes_with_events_they_have_no_acked():
     hades = Hades(use_no_ack_cache=True)
@@ -47,16 +54,15 @@ async def test_no_ack_cache_does_not_call_processes_with_events_they_have_no_ack
     ack_count = 0
     no_ack_count = 0
 
- 
-
     class SometimesAck(Process):
         def __init__(self, ack_two: bool) -> None:
             self.ack_two = ack_two
             super().__init__()
+
         async def notify(self, event: Event):
             match event:
                 case E1():
-                    nonlocal ack_count 
+                    nonlocal ack_count
                     ack_count += 1
                     return NotificationResponse.ACK
                 case E2():
@@ -84,7 +90,6 @@ async def test_no_ack_cache_does_not_call_processes_with_events_they_have_no_ack
     assert no_ack_count == 3
 
 
-
 async def test_exception_handling(caplog):
     caplog.set_level(logging.ERROR)
     h = Hades()
@@ -97,17 +102,15 @@ async def test_exception_handling(caplog):
                 case E2():
                     raise AttributeError
             return NotificationResponse.NO_ACK
-    
+
     h = Hades()
-   
 
     h.register_process(Raiser())
     h.add_event(UniqueProcess(), E1(t=1))
     h.add_event(UniqueProcess(), E2(t=1))
     with pytest.raises(AttributeError):
         await h.run()
-    assert "raise ValueError" in caplog.text # we get tracebacks for non raised exceptions
-
+    assert "raise ValueError" in caplog.text  # we get tracebacks for non raised exceptions
 
 
 async def test_process_not_returning_notification_response_errors():
@@ -117,13 +120,13 @@ async def test_process_not_returning_notification_response_errors():
                 case SimulationStarted():
                     return NotificationResponse.ACK
             return True
+
     hades = Hades()
     hades.register_process(BadProcess())
     hades.add_event(UniqueProcess(), E1(t=1))
     hades.add_event(UniqueProcess(), E2(t=1))
     with pytest.raises(TypeError):
         await hades.run()
-
 
 
 async def test_runs_till_events_exhausted():
@@ -135,6 +138,7 @@ async def test_runs_till_events_exhausted():
     assert hades.t == 1000
     assert len(hades.event_history) == 3
 
+
 async def test_runs_till_until_param():
     hades = Hades(record_results=True)
     hades.register_process(UniqueProcess())
@@ -143,3 +147,17 @@ async def test_runs_till_until_param():
     await hades.run(until=500)
     assert hades.t == 1000
     assert len(hades.event_history) == 2
+
+
+@patch("hades.core.hades.inspect.currentframe", lambda: None)
+def test_errors_if_getting_current_frame_fails():
+    hades = Hades(track_causing_events=True)
+    with pytest.raises(ValueError):
+        hades.add_event(UniqueProcess(), E1(t=10))
+
+
+@patch("hades.core.hades.inspect.getargvalues", lambda x: None)
+def test_errors_if_argvalues_are_wrong_type():
+    hades = Hades(track_causing_events=True)
+    with pytest.raises(TypeError):
+        hades.add_event(UniqueProcess(), E1(t=10))

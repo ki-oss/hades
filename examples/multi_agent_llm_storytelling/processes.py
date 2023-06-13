@@ -66,7 +66,10 @@ class Odysseus(Process):
                     CharacterActed(
                         t=t,
                         character_name=self._name,
-                        action="Odyssues crys out in frustration at being stuck in Troy because Poseidon won't allow him home",
+                        action=(
+                            "Odyssues crys out in frustration at being stuck in Troy because Poseidon won't allow him"
+                            " home"
+                        ),
                     )
                 )
             case StoryUnfolded() as e:

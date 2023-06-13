@@ -1,8 +1,8 @@
 """
 Events should use a consistent tense. Here past is used
 
-It will often be the case that events will need to contain identifying information for processes to identify which entity it relates 
-to within their internal state. In addition it will often be necessary to pass around data.
+It will often be the case that events will need to contain **identifying information** for processes to identify which entity it relates 
+to within their internal state. In addition it will often be necessary to pass around **data**.
 
 Another thing which may be useful is some kind of audience identifier, which can help processes distinguish quickly whether to 
 do anything with a give event.
@@ -10,6 +10,7 @@ do anything with a give event.
 Suggested way to structure this is as follows:
 
 Suppose we have two Event kinds relating to frogs:
+
 * `FrogSpawned`
 * `FrogTransformed`
 
@@ -49,9 +50,10 @@ class Event(BaseModel):
     @property
     def name(self):
         return self.__class__.__name__
-  
+
     class Config:
         frozen = True
+
 
 class SimulationStarted(Event):
     """special event issued by hades to kick off the sim"""

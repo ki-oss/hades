@@ -3,15 +3,20 @@ theme:
   name: "material"
   logo: hades.png
   favicon: hades.png
+  features:
+    - navigation.sections
   palette:
     primary: black
     accent: red
+  syntax:
+    theme: 'default'
 plugins:
   - search
   - mkdocstrings
 markdown_extensions:
   - footnotes
   - admonition
+  - pymdownx.details
   - pymdownx.arithmatex:
       generic: true
   - pymdownx.highlight:
@@ -20,6 +25,11 @@ markdown_extensions:
       permalink: true
   - pymdownx.snippets
   - pymdownx.inlinehilite
+  - pymdownx.superfences:
+      custom_fences:
+      - name: mermaid
+        class: mermaid
+        format: !!python/name:pymdownx.superfences.fence_code_format
 extra_css:
   - custom-styles.css
 extra_javascript:
@@ -30,12 +40,19 @@ repo_url: https://github.com/ki-oss/hades
 repo_name: ki-oss/hades
 nav:
   - Overview: index.md
-  - Components:
-    - Framework: core.md
-    - Time Utilities: time.md
-    - Visualisation: visualisation.md
-  - Design Justification: design-justification.md
-  - Tutorial: tutorial.md
-  - Examples:
-    - Hades 'the game': hades/examples/hades-game.md
-    - Boids: hades/examples/boids.md
+  - Usage Examples:
+    - A Simple Simulation: examples/simple-simulation.md
+    - Boids and Visualisation: examples/boids.md
+    - Multi-Agent LLM storytelling: examples/multi-agent-llm-storytelling.md
+    - Battery Charging Station: examples/battery-charging-station.md
+  - API Reference:
+    - Hades: api_reference/hades.md
+    - Event: api_reference/event.md
+    - Process: api_reference/process.md
+    - Time Utilities: api_reference/time.md
+    - Visualisation Utilities: api_reference/visualisation.md
+  - Guides:
+    - Visualising your Simulation: guides/visualisation.md
+    - Improving Performance: guides/performance.md
+  - Misc:
+    - Design Justification: design-justification.md

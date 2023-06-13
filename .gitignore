@@ -14,7 +14,6 @@
 !hades/
 hades/*
 !hades/__init__.py
-!hades/visualisation.py
 
 # hades/core
 !hades/core
@@ -34,13 +33,23 @@ hades/time/*
 !hades/time/logging.py
 !hades/time/process.py
 
+# hades/visualisation
+!hades/visualisation/
+hades/visualisation/*
+!hades/visualisation/__init__.py
+!hades/visualisation/networkx.py
+!hades/visualisation/websockets.py
+
 # examples
 
 !examples/
 examples/*
 !examples/__init__.py
 !examples/battery_charging_station.py
-!examples/boids.py
+!examples/boids/
+examples/boids/*
+!examples/boids/boids.py
+!examples/boids/boids_websockets_client.html
 !examples/readme_usage.py
 !examples/multi_agent_llm_storytelling/
 examples/multi_agent_llm_storytelling/*
@@ -78,10 +87,26 @@ tests/time/*
 !tests/time/test_process.py
 !tests/time/test_event.py
 
+# tests/visualisation
+!tests/visualisation/
+tests/visualisation/*
+!tests/visualisation/__init__.py
+!tests/visualisation/test_networkx.py
+!tests/visualisation/test_websockets.py
+
 # docs
 !docs/
 docs/*
 !docs/*.md
+!docs/examples/
+docs/examples/*
+!docs/guides/
+docs/guides/*
+!docs/api_reference/
+docs/api_reference/*
+!docs/img
+docs/img/*
 
-# docs/examples
-!docs/examples
+!docs/img/boids.gif
+!docs/**/*.md
+

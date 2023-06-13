@@ -1,6 +1,5 @@
 """
-Time steps, in hades can represent anything. However here are some helper functions included for common use cases particularly with time steps as days
-since most things within insurance dont need more resolution that this.
+Time steps in hades can represent anything. This package contains some helper functions for common use cases particularly with time steps as days
 """
 
 from hades.time.day_steps import datetime_to_step, days_in_year, quarter_from_datetime, step_to_date, step_to_datetime

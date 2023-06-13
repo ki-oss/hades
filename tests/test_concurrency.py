@@ -6,8 +6,10 @@ from hades import Event, Hades, NotificationResponse, Process
 class EventOne(Event):
     pass
 
+
 class EventTwo(Event):
     pass
+
 
 class MyProcess(Process):
     def __init__(self):
@@ -19,15 +21,16 @@ class MyProcess(Process):
             case EventOne(t=t):
                 print("event one arrives first")
                 await asyncio.sleep(0.1)  # Simulate a delay
-                self._event_data_list.append('One')
+                self._event_data_list.append("One")
                 return NotificationResponse.ACK
             case EventTwo(t=t):
                 print("event two arrives second")
                 await asyncio.sleep(0.05)
-                self._event_data_list.append('Two')
+                self._event_data_list.append("Two")
                 return NotificationResponse.ACK
         return NotificationResponse.NO_ACK
-    
+
+
 class MyLockingProcess(MyProcess):
     def __init__(self):
         super().__init__()
@@ -39,7 +42,6 @@ class MyLockingProcess(MyProcess):
 
 
 async def test_async_notify(capsys):
-
     hades = Hades()
 
     process = MyProcess()
@@ -53,7 +55,7 @@ async def test_async_notify(capsys):
     await hades.run()
 
     # two happens before one
-    assert process._event_data_list == ['Two', 'One']
+    assert process._event_data_list == ["Two", "One"]
     # even though one arrives before two
     assert capsys.readouterr().out == """event one arrives first
 event two arrives second
@@ -71,7 +73,6 @@ async def test_async_notify_with_lock(capsys):
     hades.add_event(process, EventTwo(t=0))
 
     await hades.run()
-
 
     # with the lock events happen in the order they arrive.
     assert process._event_data_list == ["One", "Two"]
