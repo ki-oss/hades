@@ -108,6 +108,9 @@ docs/api_reference/*
 docs/img/*
 
 !docs/img/boids.gif
+!docs/img/hades.svg
+!docs/img/hades.png
+
 !docs/**/*.md
 
 

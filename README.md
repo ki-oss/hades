@@ -1,8 +1,11 @@
-# Hades Framework
+![Hades](./docs/img/hades.png)
+
+<div style="text-align: center">
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue)
 ![License](https://img.shields.io/badge/License-MIT-blue.svg)
 
+</div>
 **HADES** _(HADES Asynchronous Discrete-Event Simulation)_ is a small, user friendly framework for creating simulations in python!
 
 
@@ -175,5 +178,6 @@ We'd love for you to contribute to the Hades Framework! Please check out our [co
 ## Acknowledgements
 
 * [Keith Kam](https://github.com/keith-acn) - contributed performance improvements and tracking of causation events
+* [Georgios Xanthos](https://www.instagram.com/weirdink/?hl=en) - contributed the wonderful logo!
 * [Zhe Feng](https://github.com/zhe-ki) - review and testing
-* [Sedar Olmez](https://github.com/OlmezKi) and [Akhil Ahmed](https://github.com/akhila819-ki) - usage and testing through academic research
+* [Sedar Olmez](https://github.com/SedarOlmez94) and [Akhil Ahmed](https://github.com/akhila819-ki) - usage and testing through academic research

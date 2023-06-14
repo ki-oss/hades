@@ -1,7 +1,11 @@
-# Hades Framework
+![Hades](./img/hades.png)
+
+<div style="text-align: center">
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue)
 ![License](https://img.shields.io/badge/License-MIT-blue.svg)
+
+</div>
 
 **HADES** _(HADES Asynchronous Discrete-Event Simulation)_ is a small, user friendly framework for creating simulations in python!
 
