@@ -1,15 +1,19 @@
 
 <p align="center">
-![Hades](./docs/img/hades.png)
+    
+<img src="./docs/img/hades.png">
+    
 </p>
 <p align="center">
-![Version](https://img.shields.io/badge/version-1.0.0-blue)
-![License](https://img.shields.io/badge/License-MIT-blue.svg)
+<img src="https://img.shields.io/badge/version-1.0.0-blue" alt="version">
+<img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="version">
+
 </p>
 <p align="center">
-**HADES** _(HADES Asynchronous Discrete-Event Simulation)_ is a small, user friendly framework for creating simulations in python!
+    <b>HADES</b> <i>(HADES Asynchronous Discrete-Event Simulation)</i> is a small, user friendly framework for creating simulations in python!
 </p>
 
+## Features:
 * 🎲🤖 **Supports both Agent Based and Process Based models** - how you model the entities in your simulation is up to you!
 * ⚡ **Async execution within a time-step** - designed for working IO-bound workloads over the network (e.g. LLM APIs, db lookups, etc)
 * 📈 **Visualisation** - `websockets` support to for building a custom frontend for your sim, `matplotlib` in a Jupyter notepad or simply outputting a `mermaid` diagram
