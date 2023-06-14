@@ -1,9 +1,6 @@
 
-<p align="center">
-    
-<img src="./img/hades.png" width="80%">
-    
-</p>
+<img src="./img/hades-bounded.png">
+
 <p align="center">
 <img src="https://img.shields.io/badge/version-1.0.0-blue" alt="version">
 <img src="https://img.shields.io/badge/License-Apache 2.0-blue.svg" alt="version">

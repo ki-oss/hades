@@ -1,7 +1,7 @@
 
 <p align="center">
     
-<img src="./docs/img/hades.png" width="80%">
+<img src="./docs/img/hades-bounded.png" width="100%">
     
 </p>
 <p align="center">

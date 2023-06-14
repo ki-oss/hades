@@ -110,6 +110,7 @@ docs/img/*
 !docs/img/boids.gif
 !docs/img/hades.svg
 !docs/img/hades.png
+!docs/img/hades-bounded.png
 
 !docs/**/*.md
 
