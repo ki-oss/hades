@@ -1,13 +1,19 @@
+
 <p align="center">
-
-![Hades](./img/hades.png)
-
-![Version](https://img.shields.io/badge/version-1.0.0-blue)
-![License](https://img.shields.io/badge/License-MIT-blue.svg)
-
-**HADES** _(HADES Asynchronous Discrete-Event Simulation)_ is a small, user friendly framework for creating simulations in python!
+    
+<img src="./img/hades.png" width="80%">
+    
+</p>
+<p align="center">
+<img src="https://img.shields.io/badge/version-1.0.0-blue" alt="version">
+<img src="https://img.shields.io/badge/License-Apache 2.0-blue.svg" alt="version">
 
 </p>
+<p align="center">
+    <b>HADES</b> <i>(HADES Asynchronous Discrete-Event Simulation)</i> is a small, user friendly framework for creating simulations in python!
+</p>
+
+## Features
 
 * 🎲🤖 **Supports both Agent Based and Process Based models** - how you model the entities in your simulation is up to you!
 * ⚡ **Async execution within a time-step** - designed for working IO-bound workloads over the network (e.g. LLM APIs, db lookups, etc)
@@ -34,6 +40,6 @@ Here are some of the fun things you might do with it:
 * [Multi Agent LLM Storytelling](./examples/multi-agent-llm-storytelling.md) -  Retelling the Odyssey with LLMs - demonstrates the highly IO bound stuff hades is good at. Some output:
     >   "He remembered the sea nymph who had helped him before and realized that having allies like her was crucial to his success. 
         He also continued to use his technological knowledge to stay ahead of Poseidon's wrath, utilizing his drone and sonar to navigate the waters safely."
-* [Battery charing station](./examples/battery-charging-station) - to help compare what building a simulation looks with `simpy` vs `hades`
+* [Battery charging station](./examples/battery-charging-station) - to help compare what building a simulation looks with `simpy` vs `hades`
 
 

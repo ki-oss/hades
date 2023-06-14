@@ -1,8 +1,8 @@
 site_name: Hades
 theme:
   name: "material"
-  logo: hades.png
-  favicon: hades.png
+  logo: ./img/hades.png
+  favicon: ./img/hades.png
   features:
     - navigation.sections
   palette:
