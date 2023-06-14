@@ -13,7 +13,8 @@
     <b>HADES</b> <i>(HADES Asynchronous Discrete-Event Simulation)</i> is a small, user friendly framework for creating simulations in python!
 </p>
 
-## Features:
+## Features
+
 * 🎲🤖 **Supports both Agent Based and Process Based models** - how you model the entities in your simulation is up to you!
 * ⚡ **Async execution within a time-step** - designed for working IO-bound workloads over the network (e.g. LLM APIs, db lookups, etc)
 * 📈 **Visualisation** - `websockets` support to for building a custom frontend for your sim, `matplotlib` in a Jupyter notepad or simply outputting a `mermaid` diagram
