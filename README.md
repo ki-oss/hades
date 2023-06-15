@@ -1,8 +1,6 @@
 
 <p align="center">
-    
-<img src="./docs/img/hades-bounded.png" width="100%">
-    
+<h1 align="center">Hades Framework</h1>
 </p>
 <p align="center">
 <img src="https://img.shields.io/badge/version-1.0.0-blue" alt="version">
