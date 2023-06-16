@@ -11,7 +11,7 @@ Let's take two examples
 As you might notice in the following example, none of the methods called when a `Boid` process (from the [boids example](./examples/boids.md)) reacts to a `BoidMoved` event, are `async` flavoured.
 
 ```python
---8<-- "examples/boids/boids.py:194:222"
+--8<-- "examples/boids/boids.py:210:236"
 ```
 
 This means that we will get no speed up from running them concurrently in an `asyncio.gather`. An approach utilising multiple CPU cores or at least not slowing stuff down by creating coroutines etc may be faster here. 
@@ -29,7 +29,7 @@ IO Bound tasks are Hades' bread and butter. When there are multiple IO-bound thi
     Concurrent handling of events within the same process does have some things to be careful of (see [core#process](./core.md))
 
 ```python
---8<-- "examples/multi_agent_llm_storytelling/processes.py:113:148"
+--8<-- "examples/multi_agent_llm_storytelling/processes.py:127:162"
 ```
 
 ## Optimising for Performance
@@ -40,5 +40,5 @@ These arguments are detailed in [core/#hades.core.hades.Hades](./core.md#hades.c
 
 These are used to speed things up in the boids example.
 ```python
---8<-- "examples/boids/boids.py:358:360"
+--8<-- "examples/boids/boids.py:372:374"
 ```

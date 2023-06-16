@@ -1,5 +1,5 @@
 
-<img src="./img/hades-bounded.png">
+<img src="./img/hades_black.png">
 
 <p align="center">
 <img src="https://img.shields.io/badge/version-1.0.0-blue" alt="version">
