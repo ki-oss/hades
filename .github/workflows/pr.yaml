@@ -32,3 +32,14 @@ jobs:
     - name: Run Coverage
       run: |
         poetry run make coverage
+
+  check-license:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/setup-go@v4
+    - name: Download add license
+      run: |
+        go install github.com/google/addlicense@v1.0.0
+    - name: Check License Added
+      run: |
+        addlicense -c 'Brit Group Services Ltd.' -l apache ./**/*.py  
