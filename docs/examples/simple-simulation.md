@@ -4,7 +4,7 @@ Here we are going to build a simple simulation where we simulate Zeus sending li
 #### Imports
 
 ```python
---8<-- "examples/readme_usage.py:0:4"
+--8<-- "examples/readme_usage.py:14:18"
 ```
 
 #### Defining our Events
@@ -12,7 +12,7 @@ Here we are going to build a simple simulation where we simulate Zeus sending li
 Let's begin by defining some events we want to exist. Lets have one for Zeus throwing lightning at a target, one for Poseidon causing a storm near a target, one for Athena Intervening to help someone, and one for Odysseus dying.
 
 ```python
---8<-- "examples/readme_usage.py:15:28"
+--8<-- "examples/readme_usage.py:29:42"
 ```
 
 #### Adding the God Processes
@@ -22,7 +22,7 @@ react to the builtin `SimulationStarted` event.
 
 
 ```python
---8<-- "examples/readme_usage.py:34:51"
+--8<-- "examples/readme_usage.py:48:65"
 ```
 
 
@@ -33,13 +33,13 @@ Now lets do this for our hero Odysseus. We want to make it so that Odysseus will
 to deceased using an Enum.
 
 ```python
---8<-- "examples/readme_usage.py:9:12"
+--8<-- "examples/readme_usage.py:23:26"
 ```
 
 Finally if `AthenaIntervened` his health will be restored and he will be `SAFE`.
 
 ```python
---8<-- "examples/readme_usage.py:68:107"
+--8<-- "examples/readme_usage.py:82:121"
 ```
 
 #### Adding Athena's Process
@@ -50,7 +50,7 @@ Secondly, whenever `OddyseusDied` she will have a `50%` chance of intervening. N
 
 
 ```python
---8<-- "examples/readme_usage.py:54:66"
+--8<-- "examples/readme_usage.py:68:80"
 ```
 
 #### Putting it all together
@@ -58,7 +58,7 @@ Secondly, whenever `OddyseusDied` she will have a `50%` chance of intervening. N
 Finally we want to actually run these processes together
 
 ```python
---8<-- "examples/readme_usage.py:113:120"
+--8<-- "examples/readme_usage.py:127:134"
 ```
 
 Note how we instantiate `Odysseus` and `Athena` with a random seed to ensure every time we run this we get the same result. They inherit from [`RandomProcess`](../api_reference/process.md#hades.core.process.RandomProcess) to do this.
