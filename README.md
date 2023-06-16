@@ -1,6 +1,10 @@
 
 <p align="center">
-<h1 align="center">Hades Framework</h1>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./docs/img/hades_white.png">
+  <img alt="Hades Logo" src="./docs/img/hades_black.png">
+</picture>
+
 </p>
 <p align="center">
 <img src="https://img.shields.io/badge/version-1.0.0-blue" alt="version">
