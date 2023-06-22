@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "hades-framework"
-version = "1.0.0"
+version = "1.0.1"
 description = "Hades Asynchronous Discrete-Event Simulation"
 authors = ["Ki Insurance Team", "Reuben Thomas-Davis <Reuben.Thomas-Davis@ki-insurance.com>", "Keith Kam <keith.kam@accenture.com>"]
 license = "Apache License 2.0"
