@@ -5,7 +5,7 @@
 
 </p>
 <p align="center">
-<img src="https://img.shields.io/badge/version-1.0.0-blue" alt="version">
+<img src="https://img.shields.io/badge/version-1.0.2-blue" alt="version">
 <img src="https://img.shields.io/badge/License-Apache 2.0-blue.svg" alt="version">
 
 </p>
@@ -32,12 +32,12 @@ Using the Hades Framework is as simple as creating your custom `Process`es and `
 
 Here are some of the fun things you might do with it:
 
-* [Boids and Websockets](https://github.io/ki-oss/hades/examples/boids) - The classic Boids simulation with canvas and d3.js visualisation via websockets.
+* [Boids and Websockets](https://ki-oss.github.io/hades/examples/boids) - The classic Boids simulation with canvas and d3.js visualisation via websockets.
     ![boids example](https://raw.githubusercontent.com/ki-oss/hades/main/docs/img/boids.gif)
-* [Multi Agent LLM Storytelling](https://github.io/ki-oss/hades/examples/multi) -  Retelling the Odyssey with LLMs - demonstrates the highly IO bound stuff hades is good at. Some output:
+* [Multi Agent LLM Storytelling](https://ki-oss.github.io/hades/examples/multi) -  Retelling the Odyssey with LLMs - demonstrates the highly IO bound stuff hades is good at. Some output:
     >   "He remembered the sea nymph who had helped him before and realized that having allies like her was crucial to his success. 
         He also continued to use his technological knowledge to stay ahead of Poseidon's wrath, utilizing his drone and sonar to navigate the waters safely."
-* [Battery charging station](https://github.io/ki-oss/hades/examples/battery-charging-station) - to help compare what building a simulation looks with `simpy` vs `hades`
+* [Battery charging station](https://ki-oss.github.io/hades/examples/battery-charging-station) - to help compare what building a simulation looks with `simpy` vs `hades`
 
 Here is a very simple example where we simulate Zeus sending lightning bolts and Poseidon creating storms, both potentially affecting the life of Odysseus:
 
