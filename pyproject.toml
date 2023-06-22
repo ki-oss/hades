@@ -1,0 +1,81 @@
+[tool.poetry]
+name = "hades-framework"
+version = "1.0.1"
+description = "Hades Asynchronous Discrete-Event Simulation"
+authors = ["Ki Insurance Team", "Reuben Thomas-Davis <Reuben.Thomas-Davis@ki-insurance.com>", "Keith Kam <keith.kam@accenture.com>"]
+license = "Apache License 2.0"
+readme = "README.pypi.md"
+packages = [
+    {include="hades"}
+]
+
+[[tool.poetry.source]]
+name = "PyPI"
+priority = "primary"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pydantic = "^1.10.8"
+networkx = {version = "^3.1", optional = true}
+networkx-stubs = {version = "^0.0.1", optional = true}
+websockets = "^11.0.3"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.3.1"
+isort = "^5.12.0"
+black = "^23.3.0"
+blacken-docs = "^1.13.0"
+mypy = "^1.3.0"
+import-linter = "^1.9.0"
+coverage = "^7.2.6"
+pytest-asyncio = "^0.21.0"
+mkdocstrings = {extras = ["python"], version = "^0.22.0"}
+mkdocs = "^1.4.3"
+mkdocs-material = "^9.1.15"
+pymdown-extensions = "^10.0.1"
+openai = "^0.27.7"
+httpx = "^0.24.1"
+tiktoken = ">=0.3.0"
+gpt-json = "^0.1.10"
+feedparser = "^6.0.10"
+pycln = "^2.1.5"
+
+[tool.poetry.extras]
+visualisation = ["networkx", "networkx-stubs", "websockets"]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 120
+target-version = ['py310']
+include = '\.pyi?$'
+exclude = "docs"
+
+[tool.isort]
+profile = "black"
+line_length = 120
+src_paths = ["hades"]
+
+[tool.mypy]
+files = ["hades/"]
+
+[[tool.mypy.overrides]]
+module = "networkx.*"
+ignore_missing_imports = "True"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+markers = ["performance", "example"]
+
+[tool.coverage.run]
+source = ["hades"]
+
+[tool.importlinter]
+root_package = "hades"
+
+[[tool.importlinter.contracts]]
+name = "hades.core may not import from hades.time"
+type = "layers"
+layers=["hades.time", "hades.core"]

@@ -1,0 +1,300 @@
+<head>
+    <title>Boids</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"
+        integrity="sha512-M7nHCiNUOwFt6Us3r8alutZLm9qMt4s9951uo8jqO4UwJ1hziseL6O3ndFyigx6+LREfZqnhHxYjKRJ8ZQ69DQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        div {
+            display: inline-block;
+        }
+
+        svg,
+        canvas {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <h3>Live Boids</h3>
+        <canvas id="boids-canvas" width="1000" height="1000"></canvas>
+    </div>
+    <div id="graph-container">
+        <h3>Live Event Process Graph</h3>
+    </div>
+    <footer>t=0</footer>
+
+    <script>
+        let nodes = [];
+        let links = [];
+
+
+
+        // Prepare SVG container for the graph
+        const svg = d3.select("#graph-container")
+            .append("svg")
+            .attr("width", 1000)
+            .attr("height", 1000);
+
+        // Initialize simulation
+        const simulation = d3.forceSimulation()
+            .force("link", d3.forceLink(links).id(x => x.id).distance(100))
+            .force("charge", d3.forceManyBody(-500))
+            .force("collide", d3.forceCollide(50))
+            .force("center", d3.forceCenter(800 / 2, 1000 / 2));
+
+        let t = 0;
+
+        // Update graph based on new data
+        function updateGraph(data) {
+            let doDraw = false;
+            // Check for new nodes and add them to the nodes array
+            let sourceNode = nodes.find(node => node.id === data.source_process.process_name)
+            t = Math.max(t, data.event.event_contents.t)
+            document.getElementsByTagName("footer")[0].innerHTML = `t=${t}`
+            if (sourceNode === undefined) {
+                sourceNode = { id: data.source_process.process_name, type: 'process', lastActive: t }
+            } else {
+                sourceNode.lastActive = t
+            }
+            if (!sourceNode.index) {
+                nodes.push(sourceNode);
+                doDraw = true
+            }
+            let targetNode = nodes.find(node => node.id === data.target_process.process_name)
+            if (targetNode === undefined) {
+                targetNode = { id: data.target_process.process_name, type: 'process', lastActive: t }
+            } else {
+                targetNode.lastActive = t
+            }
+            if (!targetNode.index) {
+                nodes.push(targetNode);
+                doDraw = true
+            }
+            let eventNode = nodes.find(node => node.id === data.event.event_type)
+            if (eventNode === undefined) {
+                eventNode = { id: data.event.event_type, type: 'event', lastActive: t }
+            } else[
+                eventNode.lastActive = t
+            ]
+            if (!eventNode.index) {
+                nodes.push(eventNode);
+                doDraw = true
+            }
+
+            // Check for new links and add them to the links array
+            const sourceLink = {
+                source: sourceNode,
+                target: eventNode,
+                highlight: true,
+                lastActive: t,
+                value: 1
+            };
+
+            const targetLink = {
+                source: eventNode,
+                target: targetNode,
+                highlight: true,
+                lastActive: t,
+                value: 1
+            };
+            doDraw = true
+            for (const link of [sourceLink, targetLink]) {
+                const existingLink = links.find(l => l.source.id === link.source.id && l.target.id === link.target.id)
+
+                if (existingLink === undefined) {
+                    links.push(link);
+                }
+                else {
+                    existingLink.lastActive = t
+                }
+            }
+            if (doDraw) {
+                drawGraph()
+            }
+        }
+
+        function drawGraph() {
+            // Clear SVG for the new graph
+            svg.selectAll("*").remove();
+
+
+
+
+
+            // Create arrow definitions for links
+            svg.append("defs").selectAll("marker")
+                .data(["end"])
+                .enter().append("marker")
+                .attr("id", String)
+                .attr("viewBox", "0 -5 10 10")
+                .attr("refX", 15)
+                .attr("refY", -1.5)
+                .attr("markerWidth", 6)
+                .attr("markerHeight", 6)
+                .attr("orient", "auto")
+                .append("path")
+                .attr("d", "M0,-5L10,0L0,5")
+                .style("stroke", "#999")
+                .style("opacity", "0.6");
+
+            // JOIN new data with old elements.
+            let link = svg.selectAll("line")
+                .data(links)
+                .join("line")
+                .attr("marker-end", "url(#end)")  // Add arrow to the end of line
+                .style("stroke", d => d.lastActive === t ? 'red' : '#999')
+                .style("stroke-opacity", 0.6)
+                .style("stroke-width", d => Math.sqrt(d.value));
+
+            let node = svg.selectAll(".node")
+                .data(nodes)
+                .join("g")
+                .attr("class", "node");
+
+            const shapeSize = 20
+            node.each(function (d) {
+                if (d.type === 'event') {
+                    d3.select(this).append("rect")
+                        .attr("width", shapeSize) // Adjust the width and height as needed
+                        .attr("height", shapeSize)
+                        .attr("fill", "orange")
+                        .attr("opacity", d => d.lastActive === t ? 1 : 0.4);
+                } else {
+                    d3.select(this).append("circle")
+                        .attr("r", shapeSize/2)
+                        .attr("fill", "cyan")
+                        .attr("opacity", d => d.lastActive === t ? 1 : 0.4);
+                }
+
+                d3.select(this).append("text")
+                    .attr("dx", 12)
+                    .attr("dy", ".35em")
+                    .text(d => d.id);
+            });
+
+
+
+            // UPDATE force simulation nodes and links
+            simulation.nodes(nodes);
+            simulation.force("link").links(links);
+            // START/RESTART simulation
+            simulation.alpha(1).restart();
+
+            // Drag functions used for interactivity
+            function dragStarted(event, d) {
+                if (!event.active) simulation.alphaTarget(0.3).restart();
+                d.fx = d.x;
+                d.fy = d.y;
+            }
+
+            function dragged(event, d) {
+                d.fx = event.x;
+                d.fy = event.y;
+            }
+
+            function dragEnded(event, d) {
+                if (!event.active) simulation.alphaTarget(0);
+                d.fx = null;
+                d.fy = null;
+            }
+
+            node.call(d3.drag()
+                .on("start", dragStarted)
+                .on("drag", dragged)
+                .on("end", dragEnded));
+
+
+            // // UPDATE node and link positions each tick
+            simulation.on("tick", () => {
+                // Update node positions
+                node.select("circle").attr("cx", (d) => d.x)
+                    .attr("cy", (d) => d.y);
+                node.select("rect").attr("x", (d) => d.x - shapeSize/2) // Subtract half the width
+                    .attr("y", (d) => d.y - shapeSize/2);
+                node.select("text").attr("x", (d) => d.x)
+                    .attr("y", (d) => d.y);
+
+                // Update link positions
+                link.attr("x1", (d) => d.source.x)
+                    .attr("y1", (d) => d.source.y)
+                    .attr("x2", (d) => d.target.x)
+                    .attr("y2", (d) => d.target.y);
+            });
+        }
+
+
+        function drawBoid(ctx, boid) {
+            const angle = Math.atan2(boid.dy, boid.dx);
+            ctx.translate(boid.x, boid.y);
+            ctx.rotate(angle);
+            ctx.translate(-boid.x, -boid.y);
+            ctx.fillStyle = boid.full ? "gold" : "#558cf4";
+            ctx.beginPath();
+            ctx.moveTo(boid.x, boid.y);
+            ctx.lineTo(boid.x - 15, boid.y + 5);
+            ctx.lineTo(boid.x - 15, boid.y - 5);
+            ctx.lineTo(boid.x, boid.y);
+            ctx.fill();
+            ctx.setTransform(1, 0, 0, 1, 0, 0);
+        }
+        function drawWorm(ctx, x, y) {
+            ctx.beginPath();
+            ctx.arc(x, y, 4, 2 * Math.PI, false);
+            ctx.fillStyle = 'pink';
+            ctx.fill();
+        }
+
+        let i = 0;
+        const currentBoidPositions = {}
+        const currentWormPositions = {}
+
+        function animationLoop() {
+            // Clear the canvas and redraw all the boids in their current positions
+            const ctx = document.getElementById("boids-canvas").getContext("2d");
+            ctx.clearRect(0, 0, 1000, 1000);
+            for (let boid_id of Object.keys(currentBoidPositions)) {
+                const { movement, full } = currentBoidPositions[boid_id]
+                drawBoid(ctx, {
+                    x: movement.position[0],
+                    y: movement.position[1],
+                    dx: movement.velocity[0],
+                    dy: movement.velocity[1],
+                    full
+                });
+            }
+            for (let worm_id of Object.keys(currentWormPositions)) {
+                const { worm_position: [x, y] } = currentWormPositions[worm_id]
+                drawWorm(ctx, x, y)
+            }
+
+        }
+        window.onload = () => {
+            // Schedule the main animation loop
+            const websocket = new WebSocket("ws://localhost:8765/");
+
+            websocket.onmessage = ({ data }) => {
+                data = JSON.parse(data)
+                switch (data.event.event_type) {
+                    case "WormEaten":
+                        delete currentWormPositions[data.event.event_contents.worm_id]
+                        currentBoidPositions[data.event.event_contents.boid_id].full = true
+                        break
+                    case "BoidMoved":
+                        currentBoidPositions[data.event.event_contents.boid_id] = { ...data.event.event_contents, full: (currentBoidPositions[data.event.event_contents.boid_id] || {}).full }
+                        break
+                    case "WormPopsHisHeadUp":
+                        currentWormPositions[data.event.event_contents.worm_id] = data.event.event_contents
+                        break
+                }
+                updateGraph(data)
+                window.requestAnimationFrame(animationLoop);
+            };
+        };
+    </script>
+</body>

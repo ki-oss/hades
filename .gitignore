@@ -1,0 +1,128 @@
+# Allow list style .gitignore
+# root
+/*
+!.gitignore
+!README.md
+!README.pypi.md
+!LICENSE.md
+!CONTRIBUTING.md
+!poetry.lock
+!pyproject.toml
+!mkdocs.yml
+!Makefile
+
+# hades/
+!hades/
+hades/*
+!hades/__init__.py
+
+# hades/core
+!hades/core
+hades/core/*
+!hades/core/__init__.py
+!hades/core/event.py
+!hades/core/process.py
+!hades/core/hades.py
+!hades/logging.py
+
+# hades/time
+!hades/time
+hades/time/*
+!hades/time/__init__.py
+!hades/time/day_steps.py
+!hades/time/event.py
+!hades/time/logging.py
+!hades/time/process.py
+
+# hades/visualisation
+!hades/visualisation/
+hades/visualisation/*
+!hades/visualisation/__init__.py
+!hades/visualisation/networkx.py
+!hades/visualisation/websockets.py
+
+# examples
+
+!examples/
+examples/*
+!examples/__init__.py
+!examples/battery_charging_station.py
+!examples/boids/
+examples/boids/*
+!examples/boids/boids.py
+!examples/boids/boids_websockets_client.html
+!examples/readme_usage.py
+!examples/multi_agent_llm_storytelling/
+examples/multi_agent_llm_storytelling/*
+!examples/multi_agent_llm_storytelling/__init__.py
+!examples/multi_agent_llm_storytelling/events.py
+!examples/multi_agent_llm_storytelling/processes.py
+!examples/multi_agent_llm_storytelling/prompts.py
+!examples/multi_agent_llm_storytelling/simulation.py
+!examples/multi_agent_llm_storytelling/utilities.py
+!examples/multi_agent_llm_storytelling/output.txt
+
+# tests
+!tests/
+tests/*
+!tests/__init__.py
+!tests/test_hades.py
+!tests/test_hades_performance.py
+!tests/test_event.py
+!tests/test_concurrency.py
+!tests/test_logging.py
+!tests/test_process.py
+
+# tests/examples
+!tests/examples/
+tests/examples/*
+!tests/examples/test_battery_charging_station.py
+!tests/examples/test_readme_usage.py
+
+# tests/time
+!tests/time/
+tests/time/*
+!tests/time/__init__.py
+!tests/time/test_day_steps.py
+!tests/time/test_logging.py
+!tests/time/test_process.py
+!tests/time/test_event.py
+
+# tests/visualisation
+!tests/visualisation/
+tests/visualisation/*
+!tests/visualisation/__init__.py
+!tests/visualisation/test_networkx.py
+!tests/visualisation/test_websockets.py
+
+# docs
+!docs/
+docs/*
+!docs/*.md
+!docs/examples/
+docs/examples/*
+!docs/guides/
+docs/guides/*
+!docs/api_reference/
+docs/api_reference/*
+!docs/img
+docs/img/*
+
+!docs/img/boids.gif
+!docs/img/hades_white.png
+!docs/img/hades_black.png
+
+
+!docs/**/*.md
+
+
+# .github
+
+!/.github/
+/.github/*
+!/.github/workflows
+/.github/workflows/*
+!/.github/workflows/pr.yaml
+!/.github/workflows/publish.yaml
+!/.github/workflows/docs.yaml
+

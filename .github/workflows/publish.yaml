@@ -1,0 +1,55 @@
+name: Tag and publish client library versions
+on:
+  push:
+    branches:
+      - main
+jobs:
+  autotag:
+    permissions:
+      contents: 'write'
+      id-token: 'write'
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/hades-framework
+
+    outputs:
+      tag-exists: ${{ steps.check-tag-exists.outcome }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.3.1
+        with:
+          fetch-depth: 0
+      - name: Setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11' 
+      - name: Setup poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 - --version 1.5.0
+          export PATH=$PATH:$HOME/.local/bin
+      - name: Get version
+        run: echo "VERSION=$(poetry version | cut -d ' ' -f2)" >> $GITHUB_ENV
+      - name: Check tag exists for client library version
+        id: check-tag-exists
+        continue-on-error: true
+        run: >
+          git tag -l | grep v${{ env.VERSION }} || exit 1
+      - name: Push tag if none exists
+        if: ${{ steps.check-tag-exists.outcome == 'failure' }}
+        uses: actions/github-script@v4
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            const fs = require('fs')
+            github.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: `refs/tags/v${{ env.VERSION }}`,
+              sha: context.sha
+            })
+      - name: Build artefact
+        run: >
+          poetry build
+      - name: Publish package distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
