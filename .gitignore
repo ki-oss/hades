@@ -3,6 +3,7 @@
 /*
 !.gitignore
 !README.md
+!README.pypi.md
 !LICENSE.md
 !CONTRIBUTING.md
 !poetry.lock
@@ -123,4 +124,5 @@ docs/img/*
 /.github/workflows/*
 !/.github/workflows/pr.yaml
 !/.github/workflows/publish.yaml
+!/.github/workflows/docs.yaml
 
