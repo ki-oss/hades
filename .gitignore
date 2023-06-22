@@ -122,4 +122,5 @@ docs/img/*
 !/.github/workflows
 /.github/workflows/*
 !/.github/workflows/pr.yaml
+!/.github/workflows/publish.yaml
 
