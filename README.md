@@ -185,7 +185,7 @@ We'd love for you to contribute to the Hades Framework! Please check out our [co
 
 ## Acknowledgements
 
-* [Keith Kam](https://github.com/keith-acn) - contributed performance improvements and tracking of causation events
-* [Georgios Xanthos](https://www.instagram.com/weirdink/?hl=en) - contributed the wonderful logo!
-* [Zhe Feng](https://github.com/zhe-ki) - review and testing
+* [Keith Kam](https://www.linkedin.com/in/keith-kam-yk) - contributed performance improvements and tracking of causation events
+* [Georgios Xanthos](https://dribbble.com/weirdink) - contributed the wonderful logo!
+* [Zhe Feng](https://www.linkedin.com/in/zhe-feng-53642197) - review and testing
 * [Sedar Olmez](https://github.com/SedarOlmez94) and [Akhil Ahmed](https://github.com/akhila819-ki) - usage and testing through academic research
