@@ -8,7 +8,7 @@ Let's take two examples
 
 ## CPU Bound
 
-As you might notice in the following example, none of the methods called when a `Boid` process (from the [boids example](./examples/boids.md)) reacts to a `BoidMoved` event, are `async` flavoured.
+As you might notice in the following example, none of the methods called when a `Boid` process (from the [boids example](../../examples/boids)) reacts to a `BoidMoved` event, are `async` flavoured.
 
 ```python
 --8<-- "examples/boids/boids.py:210:236"
@@ -26,7 +26,7 @@ We could, for example, implement an API endpoint which takes the `BoidMoved` eve
 IO Bound tasks are Hades' bread and butter. When there are multiple IO-bound things being done through `asyncio` by separate processes during a timestep, or even by the same process, but in response to a different event, they will all be done concurrently before moving to the next timestep.
 
 !!! note
-    Concurrent handling of events within the same process does have some things to be careful of (see [core#process](./core.md))
+    Concurrent handling of events within the same process does have some things to be careful of (see [process](../../api_reference/process/))
 
 ```python
 --8<-- "examples/multi_agent_llm_storytelling/processes.py:127:162"
@@ -36,7 +36,7 @@ IO Bound tasks are Hades' bread and butter. When there are multiple IO-bound thi
 
 Apart from ensuring you are taking advantage of `async` implementations for IO bound tasks within processes (e.g. `httpx` instead of `requests`), there are a number of other performance optimisations you can make in terms of configuring `Hades`.
 
-These arguments are detailed in [core/#hades.core.hades.Hades](./core.md#hades.core.hades.Hades), and mostly involve removing some non-essential functionality to give better performance.
+These arguments are detailed in [Hades](../../api_reference/hades#hades.core.hades.Hades), and mostly involve removing some non-essential functionality to give better performance.
 
 These are used to speed things up in the boids example.
 ```python
