@@ -16,7 +16,7 @@
 The entity doing the main body of work within the simulation is the `Process`. The `notify(event)` method of every process registered 
 (via `hades_instance.register_process()`) will be called for each event in the queue for the next time step as a group of asynchronous tasks.
 That is to say: events are broadcast and handled asynchronously by the registered processes. 
-For justification of this see the [design justification](./design-justification.md).
+For justification of this see the [design justification](../../design-justification).
 
 ## Pattern matching events
 

@@ -31,7 +31,7 @@ Using the Hades Framework is as simple as creating your custom `Process`es and `
 
 Here are some of the fun things you might do with it:
 
-* [Simple Simulation](./examples/simple-simulation.md) - A simple simulation of Odysseus dodging the wrath of the gods to get started with
+* [Simple Simulation](./examples/simple-simulation) - A simple simulation of Odysseus dodging the wrath of the gods to get started with
 * [Boids and Websockets](./examples/boids) - The classic Boids simulation with live canvas and d3.js visualisation via websockets.
     ![boids example](./img/boids.gif)
 * [Multi Agent LLM Storytelling](./examples/multi-agent-llm-storytelling.md) -  Retelling the Odyssey with LLMs - demonstrates the highly IO bound stuff hades is good at. Some output:
