@@ -17,7 +17,7 @@ import os
 from dataclasses import asdict
 
 import openai
-from gpt_json import GPTMessage, GPTModelVersion
+from examples.multi_agent_llm_storytelling.models import GPTMessage, GPTModelVersion
 from openai.error import APIError, RateLimitError, Timeout
 
 API_KEY = os.environ["OPENAI_API_KEY"]

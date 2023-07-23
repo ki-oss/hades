@@ -11,7 +11,7 @@ Let's take two examples
 As you might notice in the following example, none of the methods called when a `Boid` process (from the [boids example](./examples/boids.md)) reacts to a `BoidMoved` event, are `async` flavoured.
 
 ```python
---8<-- "examples/boids/boids.py:210:236"
+--8<-- "examples/boids/boids.py:209:235"
 ```
 
 This means that we will get no speed up from running them concurrently in an `asyncio.gather`. An approach utilising multiple CPU cores or at least not slowing stuff down by creating coroutines etc may be faster here. 
@@ -40,5 +40,5 @@ These arguments are detailed in [core/#hades.core.hades.Hades](./core.md#hades.c
 
 These are used to speed things up in the boids example.
 ```python
---8<-- "examples/boids/boids.py:372:374"
+--8<-- "examples/boids/boids.py:371:373"
 ```

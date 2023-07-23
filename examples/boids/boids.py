@@ -18,7 +18,7 @@ import logging
 import sys
 from typing import Union
 
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 from hades import Event, Hades, NotificationResponse, PredefinedEventAdder, Process
 from hades.visualisation.websockets import HadesWS
@@ -64,8 +64,7 @@ class BoidMovement(BaseModel):
 
 
 class ImmutableMovement(BoidMovement):
-    class Config:
-        frozen = True
+    model_config = ConfigDict(frozen=True)
 
 
 class BoidMoved(Event):

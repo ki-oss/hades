@@ -15,6 +15,7 @@
 import time
 
 import pytest
+from pydantic import ConfigDict
 
 from hades import Event
 
@@ -27,38 +28,30 @@ class GreekGodSpawned(Event):
 
 class GreekGodSpawnedDictStr(GreekGodSpawned):
     def __hash__(self) -> int:
-        return hash(str(self.dict()))
+        return hash(str(self.model_dump()))
 
-    class Config:
-        frozen = False
-        mutable = False
+    model_config = ConfigDict(frozen=False, mutable=False)
 
 
 class GreekGodSpawnedFrozenSet(GreekGodSpawned):
     def __hash__(self) -> int:
-        return hash(frozenset(self.dict().items()))
+        return hash(frozenset(self.model_dump().items()))
 
-    class Config:
-        frozen = False
-        mutable = False
+    model_config = ConfigDict(frozen=False, mutable=False)
 
 
 class GreekGodSpawnedJson(GreekGodSpawned):
     def __hash__(self) -> int:
-        return hash(self.json())
+        return hash(self.model_dump_json())
 
-    class Config:
-        frozen = False
-        mutable = False
+    model_config = ConfigDict(frozen=False, mutable=False)
 
 
 class GreekGodSpawnedRecursiveHash(GreekGodSpawned):
     def __hash__(self) -> int:
-        return hash(tuple(hash(getattr(self, key)) for key in self.dict().keys()))
+        return hash(tuple(hash(getattr(self, key)) for key in self.model_dump().keys()))
 
-    class Config:
-        frozen = False
-        mutable = False
+    model_config = ConfigDict(frozen=False, mutable=False)
 
 
 @pytest.mark.performance

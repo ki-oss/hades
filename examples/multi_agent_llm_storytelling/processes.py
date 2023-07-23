@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from gpt_json import GPTMessage, GPTMessageRole
+from examples.multi_agent_llm_storytelling.models import GPTMessage
 
 from hades import Event, Process
 from hades.core.event import Event, SimulationStarted

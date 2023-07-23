@@ -61,6 +61,7 @@ examples/multi_agent_llm_storytelling/*
 !examples/multi_agent_llm_storytelling/simulation.py
 !examples/multi_agent_llm_storytelling/utilities.py
 !examples/multi_agent_llm_storytelling/output.txt
+!examples/multi_agent_llm_storytelling/models.py
 
 # tests
 !tests/

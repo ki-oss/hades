@@ -53,7 +53,7 @@ class FrogTransformed(Event):
 This ensures that processes can cleanly identify whether the event relates to an entity they are interested in and makes a distinction
 between data (which may be quite sizeable) isn't being unnecessarily passed around.
 """
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 
 class Event(BaseModel):
@@ -65,8 +65,7 @@ class Event(BaseModel):
     def name(self):
         return self.__class__.__name__
 
-    class Config:
-        frozen = True
+    model_config = ConfigDict(frozen=True)
 
 
 class SimulationStarted(Event):
