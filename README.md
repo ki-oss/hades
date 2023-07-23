@@ -36,7 +36,7 @@ Here are some of the fun things you might do with it:
 
 * [Boids and Websockets](https://ki-oss.github.io/hades/examples/boids) - The classic Boids simulation with canvas and d3.js visualisation via websockets.
     ![boids example](./docs/img/boids.gif)
-* [Multi Agent LLM Storytelling](https://ki-oss.github.io/hades/examples/multi) -  Retelling the Odyssey with LLMs - demonstrates the highly IO bound stuff hades is good at. Some output:
+* [Multi Agent LLM Storytelling](https://ki-oss.github.io/hades/examples/multi-agent-llm-storytelling/) -  Retelling the Odyssey with LLMs - demonstrates the highly IO bound stuff hades is good at. Some output:
     >   "He remembered the sea nymph who had helped him before and realized that having allies like her was crucial to his success. 
         He also continued to use his technological knowledge to stay ahead of Poseidon's wrath, utilizing his drone and sonar to navigate the waters safely."
 * [Battery charging station](https://ki-oss.github.io/hades/examples/battery-charging-station) - to help compare what building a simulation looks with `simpy` vs `hades`
