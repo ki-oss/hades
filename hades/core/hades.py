@@ -25,7 +25,7 @@ from itertools import count, product
 from queue import Empty, PriorityQueue
 from typing import Any, Coroutine
 
-from hades.core.event import Event, ProcessUnregistered, SimulationStarted
+from hades.core.event import Event, ProcessUnregistered, SimulationEnded, SimulationStarted
 from hades.core.process import HadesInternalProcess, NotificationResponse, Process
 
 _logger = logging.getLogger(__name__)
@@ -246,3 +246,7 @@ class Hades:
         continue_running = True
         while continue_running:
             continue_running = await self.step(until=until)
+        self.add_event(hades_process, SimulationEnded(t=self.t))
+        # Always broadcast the SimulationEnded event.
+        # Even if we have gone beyond the end of time.
+        await self.step(until=None)
