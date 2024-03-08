@@ -15,6 +15,7 @@
 import pytest
 
 from hades import Event, Hades, PredefinedEventAdder, Process, ProcessUnregistered, RandomProcess, SimulationStarted
+from hades.core.event import SimulationEnded
 from hades.core.process import NotificationResponse
 
 
@@ -48,6 +49,7 @@ async def test_predefined_event_adder_adds_events_to_hades():
         ProcessUnregistered(t=0),
         Event(t=2),
         Event(t=3),
+        SimulationEnded(t=3),
     ]
 
 
