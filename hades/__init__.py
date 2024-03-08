@@ -13,13 +13,14 @@
 # limitations under the License.
 
 """HADES Asynchronous Discrete-Event Simulation"""
-from hades.core.event import Event, ProcessUnregistered, SimulationStarted
+from hades.core.event import Event, ProcessUnregistered, SimulationEnded, SimulationStarted
 from hades.core.hades import Hades
 from hades.core.process import NotificationResponse, PredefinedEventAdder, Process, RandomProcess
 
 __all__ = [
     "Event",
     "SimulationStarted",
+    "SimulationEnded",
     "ProcessUnregistered",
     "PredefinedEventAdder",
     "Hades",

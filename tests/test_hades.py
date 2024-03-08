@@ -150,7 +150,7 @@ async def test_runs_till_events_exhausted():
     hades.add_event(UniqueProcess(), E2(t=1000))
     await hades.run()
     assert hades.t == 1000
-    assert len(hades.event_history) == 3
+    assert len(hades.event_history) == 4
 
 
 async def test_runs_till_until_param():
@@ -160,7 +160,7 @@ async def test_runs_till_until_param():
     hades.add_event(UniqueProcess(), E2(t=1000))
     await hades.run(until=500)
     assert hades.t == 1000
-    assert len(hades.event_history) == 2
+    assert len(hades.event_history) == 3
 
 
 @patch("hades.core.hades.inspect.currentframe", lambda: None)

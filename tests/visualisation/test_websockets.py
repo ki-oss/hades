@@ -70,6 +70,7 @@ async def test_websockets_process_broadcasts_correct_events():
         '{"event_type": "QuarterStarted", "event_contents": {"t": 738610}}',
         '{"event_type": "QuarterStarted", "event_contents": {"t": 738701}}',
         '{"event_type": "QuarterStarted", "event_contents": {"t": 738793}}',
+        '{"event_type": "SimulationEnded", "event_contents": {"t": 738793}}',
     ]
 
 
@@ -320,6 +321,30 @@ async def test_hades_websockets(caplog):
             ' "instance_identifier": "7970269937446031133269215595648805179"}, "event": {"event_type":'
             ' "QuarterStarted", "event_contents": {"t": 738793}}, "target_process_response": 3, "causing_event":'
             ' {"event_type": "YearStarted", "event_contents": {"t": 738520}}}'
+        ),
+        (
+            '{"source_process": {"process_name": "HadesInternalProcess", '
+            '"instance_identifier": "7970269937446031133269215595648805179"}, '
+            '"target_process": {"process_name": "YearStartScheduler", '
+            '"instance_identifier": "332231294394531790607923355838092946842"}, "event": '
+            '{"event_type": "SimulationEnded", "event_contents": {"t": 738793}}, '
+            '"target_process_response": 1, "causing_event": null}'
+        ),
+        (
+            '{"source_process": {"process_name": "HadesInternalProcess", '
+            '"instance_identifier": "7970269937446031133269215595648805179"}, '
+            '"target_process": {"process_name": "QuarterStartScheduler", '
+            '"instance_identifier": "7836064115094481643618470001379502846"}, "event": '
+            '{"event_type": "SimulationEnded", "event_contents": {"t": 738793}}, '
+            '"target_process_response": 3, "causing_event": null}'
+        ),
+        (
+            '{"source_process": {"process_name": "HadesInternalProcess", '
+            '"instance_identifier": "7970269937446031133269215595648805179"}, '
+            '"target_process": {"process_name": "HadesInternalProcess", '
+            '"instance_identifier": "7970269937446031133269215595648805179"}, "event": '
+            '{"event_type": "SimulationEnded", "event_contents": {"t": 738793}}, '
+            '"target_process_response": 3, "causing_event": null}'
         ),
     ]
 

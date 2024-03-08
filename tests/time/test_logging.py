@@ -55,5 +55,13 @@ DEBUG    hades.core.hades [2024-01-01] completed task notify process: HadesInter
 DEBUG    hades.core.hades [2024-01-01] getting events for next timestamp
 DEBUG    hades.core.hades [2024-01-01] got 0 events at time 738885
 INFO     hades.core.hades [2024-01-01] ending run as we have exhausted the queue of events!
+DEBUG    hades.core.hades [2024-01-01] adding SimulationEnded from process: HadesInternalProcess, instance: 7836064115094481643618470001379502846 (caused by None) to queue
+DEBUG    hades.core.hades [2024-01-01] getting events for next timestamp
+DEBUG    hades.core.hades [2024-01-01] added event=SimulationEnded(t=738885) to next events batch
+DEBUG    hades.core.hades [2024-01-01] got 1 events at time 738885
+DEBUG    hades.time.process [2024-01-01] adding look ahead YearStarted events between 2025 and 2026 due to SimulationEnded(t=738885)
+DEBUG    hades.core.hades [2024-01-01] adding YearStarted from process: YearStartScheduler, instance: 332231294394531790607923355838092946842 (caused by None) to queue
+DEBUG    hades.core.hades [2024-01-01] completed task notify process: YearStartScheduler, instance: 332231294394531790607923355838092946842 of t=738885 from process: HadesInternalProcess, instance: 7836064115094481643618470001379502846 with result NotificationResponse.ACK
+DEBUG    hades.core.hades [2024-01-01] completed task notify process: HadesInternalProcess, instance: 7836064115094481643618470001379502846 of t=738885 from process: HadesInternalProcess, instance: 7836064115094481643618470001379502846 with result NotificationResponse.NO_ACK
 """
     )
