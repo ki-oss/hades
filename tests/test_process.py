@@ -14,8 +14,16 @@
 
 import pytest
 
-from hades import Event, Hades, PredefinedEventAdder, Process, ProcessUnregistered, RandomProcess, SimulationStarted
-from hades.core.event import SimulationEnded
+from hades import (
+    Event,
+    Hades,
+    PredefinedEventAdder,
+    Process,
+    ProcessUnregistered,
+    RandomProcess,
+    SimulationEnded,
+    SimulationStarted,
+)
 from hades.core.process import NotificationResponse
 
 
