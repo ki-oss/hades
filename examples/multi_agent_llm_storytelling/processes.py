@@ -15,7 +15,7 @@
 from examples.multi_agent_llm_storytelling.models import GPTMessage
 
 from hades import Event, Process
-from hades.core.event import Event, SimulationStarted
+from hades.core.event import Event, SimulationEnded, SimulationStarted
 from hades.core.process import NotificationResponse
 
 from .events import CharacterActed, StoryUnfolded, SynthesisedEventsOfDay
@@ -63,6 +63,9 @@ class Homer(Process):
                 except KeyError:
                     self._events_of_day[e.t] = [e]
                     self.add_event(SynthesisedEventsOfDay(t=e.t + 1, day=e.t))
+                return NotificationResponse.ACK
+            case SimulationEnded():
+                print(self.story_so_far)
                 return NotificationResponse.ACK
         return NotificationResponse.NO_ACK
 

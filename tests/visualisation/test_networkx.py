@@ -43,6 +43,11 @@ async def test_hades_process_events_to_digraph_for_simple_sim(simple_sim):
             0,
         ),
         (
+            "HadesInternalProcess - 7970269937446031133269215595648805179",
+            "YearStartScheduler - 332231294394531790607923355838092946842",
+            1,
+        ),
+        (
             "YearStartScheduler - 332231294394531790607923355838092946842",
             "QuarterStartScheduler - 7836064115094481643618470001379502846",
             0,
@@ -56,6 +61,7 @@ def test_digraph_to_mermaid_for_simple_sim(simple_sim):
     assert (
         write_mermaid(to_digraph(simple_sim))
         == """graph LR
+HadesInternalProcess-7970269937446031133269215595648805179(HadesInternalProcess - 7970269937446031133269215595648805179) -- SimulationEnded --> YearStartScheduler-332231294394531790607923355838092946842(YearStartScheduler - 332231294394531790607923355838092946842)
 HadesInternalProcess-7970269937446031133269215595648805179(HadesInternalProcess - 7970269937446031133269215595648805179) -- SimulationStarted --> YearStartScheduler-332231294394531790607923355838092946842(YearStartScheduler - 332231294394531790607923355838092946842)
 YearStartScheduler-332231294394531790607923355838092946842(YearStartScheduler - 332231294394531790607923355838092946842) -- YearStarted --> QuarterStartScheduler-7836064115094481643618470001379502846(QuarterStartScheduler - 7836064115094481643618470001379502846)"""
     )

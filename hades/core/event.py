@@ -79,3 +79,7 @@ class ProcessUnregistered(Event):
     special event for unregistered the process who sent this event.
     it is unique in that it will be consumed by hades and not broadcast to other processes.
     """
+
+
+class SimulationEnded(Event):
+    """Signals the simulation has ended."""
