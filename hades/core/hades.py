@@ -161,7 +161,7 @@ class Hades:
 
     async def _handle_event_results(
         self,
-        results: list[NotificationResponse | Exception],
+        results: list[NotificationResponse | BaseException],
         event_source_targets: list[EventSourceTargetCause],
     ):
         exception_to_raise = None
@@ -211,7 +211,7 @@ class Hades:
 
     async def _broadcast_events(
         self, target_process_events_and_source_processes
-    ) -> list[NotificationResponse | Exception]:
+    ) -> list[NotificationResponse | BaseException]:
         processor_event_notifications = self._get_processor_event_notification_coroutines(
             target_process_events_and_source_processes
         )

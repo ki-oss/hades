@@ -113,7 +113,7 @@ class HadesWS(Hades):
 
     async def _handle_event_results(
         self,
-        results: list[NotificationResponse | Exception],
+        results: list[NotificationResponse | BaseException],
         event_source_targets: list[EventSourceTargetCause],
     ):
         """asynchronously rebroadcast all event results to all ws clients"""
