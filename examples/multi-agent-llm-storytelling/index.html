@@ -1,0 +1,1421 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../boids/">
+      
+      
+        <link rel="next" href="../battery-charging-station/">
+      
+      
+      <link rel="icon" href="../../img/hades_white.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.30">
+    
+    
+      
+        <title>Multi-Agent LLM storytelling - Hades</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.3cba04c6.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../custom-styles.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="red">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#overview" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Hades" class="md-header__button md-logo" aria-label="Hades" data-md-component="logo">
+      
+  <img src="../../img/hades_white.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Hades
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Multi-Agent LLM storytelling
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ki-oss/hades" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ki-oss/hades
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Hades" class="md-nav__button md-logo" aria-label="Hades" data-md-component="logo">
+      
+  <img src="../../img/hades_white.png" alt="logo">
+
+    </a>
+    Hades
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ki-oss/hades" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ki-oss/hades
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Usage Examples
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Usage Examples
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../simple-simulation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A Simple Simulation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../boids/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Boids and Visualisation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Multi-Agent LLM storytelling
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Multi-Agent LLM storytelling
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#designing-the-processes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Designing the processes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#processes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Processes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#additional-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      Additional Code
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#putting-it-all-together" class="md-nav__link">
+    <span class="md-ellipsis">
+      Putting it all together
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-resulting-story" class="md-nav__link">
+    <span class="md-ellipsis">
+      The resulting story
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../battery-charging-station/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Battery Charging Station
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    API Reference
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            API Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api_reference/hades/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Hades
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api_reference/event/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Event
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api_reference/process/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Process
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api_reference/time/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Time Utilities
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api_reference/visualisation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Visualisation Utilities
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Guides
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Guides
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/visualisation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Visualising your Simulation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/performance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Improving Performance
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Misc
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Misc
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design-justification/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Design Justification
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#designing-the-processes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Designing the processes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#processes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Processes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#additional-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      Additional Code
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#putting-it-all-together" class="md-nav__link">
+    <span class="md-ellipsis">
+      Putting it all together
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-resulting-story" class="md-nav__link">
+    <span class="md-ellipsis">
+      The resulting story
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+  <h1>Multi-Agent LLM storytelling</h1>
+
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>Let's try to use LLMs to simulate the story of the Odyssey being retold, but with a slight difference:</p>
+<blockquote>
+<p>Odysseus has a knowledge of and can use modern technology</p>
+</blockquote>
+<p>Using LLM API's and calling them asynchronously is a useful demonstration of the type of <a href="../../guides/performance/#io-bound">IO-Bound</a> workloads which Hades is designed around.
+This will also illustrate some interesting features of the event loop.</p>
+<h2 id="designing-the-processes">Designing the processes<a class="headerlink" href="#designing-the-processes" title="Permanent link">&para;</a></h2>
+<p>The processes and how they interact is the key to this simulation. The key idea is that we have a bit of a loop, which is enabled by the <a href="../../api_reference/hades/#event-loop">hades event loop</a>:</p>
+<pre class="mermaid"><code>flowchart TB
+    A[Homer records these and plans to synthesise them into a coherent story tomorrow]
+    C[Homer notifies the characters of the last day's story]
+    D[Odysseus]
+    E[Athena]
+    F[Zeus]
+    G[...]
+    H[OpenAI endpoint]
+
+    subgraph Characters act according to their character the last day's story
+        D
+        E
+        F
+        G
+    end
+
+    subgraph Homer
+        A
+        C
+    end
+
+    A --&gt;|time moves forward one day| C
+
+    C -.-&gt;|async| D
+    C -.-&gt;|async| E
+    C -.-&gt;|async| F
+    C -.-&gt;|async| G
+    D --&gt;|CharacterActed| A
+    E --&gt;|CharacterActed| A
+    F --&gt;|CharacterActed| A
+    G --&gt;|CharacterActed| A
+    D -.-&gt;|async| H
+    E -.-&gt;|async| H
+    F -.-&gt;|async| H
+    G -.-&gt;|async| H</code></pre>
+<h2 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link">&para;</a></h2>
+<h3 id="processes">Processes<a class="headerlink" href="#processes" title="Permanent link">&para;</a></h3>
+<p>The core logic is within the processes </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Copyright 2023 Brit Group Services Ltd.</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1">#</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># you may not use this file except in compliance with the License.</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1"># You may obtain a copy of the License at</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="c1">#</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1">#      http://www.apache.org/licenses/LICENSE-2.0</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="c1">#</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="c1"># See the License for the specific language governing permissions and</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="c1"># limitations under the License.</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="kn">from</span> <span class="nn">examples.multi_agent_llm_storytelling.models</span> <span class="kn">import</span> <span class="n">GPTMessage</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="kn">from</span> <span class="nn">hades</span> <span class="kn">import</span> <span class="n">Event</span><span class="p">,</span> <span class="n">Process</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="kn">from</span> <span class="nn">hades.core.event</span> <span class="kn">import</span> <span class="n">Event</span><span class="p">,</span> <span class="n">SimulationEnded</span><span class="p">,</span> <span class="n">SimulationStarted</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="kn">from</span> <span class="nn">hades.core.process</span> <span class="kn">import</span> <span class="n">NotificationResponse</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="kn">from</span> <span class="nn">.events</span> <span class="kn">import</span> <span class="n">CharacterActed</span><span class="p">,</span> <span class="n">StoryUnfolded</span><span class="p">,</span> <span class="n">SynthesisedEventsOfDay</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="kn">from</span> <span class="nn">.prompts</span> <span class="kn">import</span> <span class="n">god_prompt</span><span class="p">,</span> <span class="n">homer_prompt</span><span class="p">,</span> <span class="n">odysseus_prompt</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="kn">from</span> <span class="nn">.utilities</span> <span class="kn">import</span> <span class="n">plaintext_chat_response</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="k">class</span> <span class="nc">Homer</span><span class="p">(</span><span class="n">Process</span><span class="p">):</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_story_of_day</span> <span class="o">=</span> <span class="p">{}</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_events_of_day</span> <span class="o">=</span> <span class="p">{}</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>    <span class="nd">@property</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a>    <span class="k">def</span> <span class="nf">story_so_far</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a>        <span class="n">story_so_far</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a>        <span class="k">for</span> <span class="n">story_day</span><span class="p">,</span> <span class="n">story</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_story_of_day</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>            <span class="n">story_so_far</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Day </span><span class="si">{</span><span class="n">story_day</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">story</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a>        <span class="k">return</span> <span class="n">story_so_far</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a>
+<a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">notify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Event</span><span class="p">):</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a>        <span class="k">match</span> <span class="n">event</span><span class="p">:</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a>            <span class="k">case</span> <span class="n">SynthesisedEventsOfDay</span><span class="p">(</span><span class="n">day</span><span class="o">=</span><span class="n">day</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="n">t</span><span class="p">):</span>
+<a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a>                <span class="n">events_of_day</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_events_of_day</span><span class="p">[</span><span class="n">day</span><span class="p">]])</span>
+<a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a>                <span class="n">story_of_day</span> <span class="o">=</span> <span class="k">await</span> <span class="n">plaintext_chat_response</span><span class="p">(</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44" href="#__codelineno-0-44"></a>                    <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
+<a id="__codelineno-0-45" name="__codelineno-0-45" href="#__codelineno-0-45"></a>                        <span class="n">GPTMessage</span><span class="p">(</span>
+<a id="__codelineno-0-46" name="__codelineno-0-46" href="#__codelineno-0-46"></a>                            <span class="n">role</span><span class="o">=</span><span class="n">GPTMessageRole</span><span class="o">.</span><span class="n">SYSTEM</span><span class="p">,</span>
+<a id="__codelineno-0-47" name="__codelineno-0-47" href="#__codelineno-0-47"></a>                            <span class="n">content</span><span class="o">=</span><span class="n">homer_prompt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">story_so_far</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">story_so_far</span><span class="p">[</span><span class="o">-</span><span class="mi">2000</span><span class="p">:],</span> <span class="n">day</span><span class="o">=</span><span class="n">day</span><span class="p">),</span>
+<a id="__codelineno-0-48" name="__codelineno-0-48" href="#__codelineno-0-48"></a>                        <span class="p">),</span>
+<a id="__codelineno-0-49" name="__codelineno-0-49" href="#__codelineno-0-49"></a>                        <span class="n">GPTMessage</span><span class="p">(</span>
+<a id="__codelineno-0-50" name="__codelineno-0-50" href="#__codelineno-0-50"></a>                            <span class="n">role</span><span class="o">=</span><span class="n">GPTMessageRole</span><span class="o">.</span><span class="n">USER</span><span class="p">,</span>
+<a id="__codelineno-0-51" name="__codelineno-0-51" href="#__codelineno-0-51"></a>                            <span class="n">content</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Events ```</span><span class="si">{</span><span class="n">events_of_day</span><span class="si">}</span><span class="s2">```&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-52" name="__codelineno-0-52" href="#__codelineno-0-52"></a>                        <span class="p">),</span>
+<a id="__codelineno-0-53" name="__codelineno-0-53" href="#__codelineno-0-53"></a>                    <span class="p">]</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54" href="#__codelineno-0-54"></a>                <span class="p">)</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55" href="#__codelineno-0-55"></a>                <span class="bp">self</span><span class="o">.</span><span class="n">add_event</span><span class="p">(</span><span class="n">StoryUnfolded</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">chapter</span><span class="o">=</span><span class="n">story_of_day</span><span class="p">))</span>
+<a id="__codelineno-0-56" name="__codelineno-0-56" href="#__codelineno-0-56"></a>                <span class="bp">self</span><span class="o">.</span><span class="n">_story_of_day</span><span class="p">[</span><span class="n">day</span><span class="p">]</span> <span class="o">=</span> <span class="n">story_of_day</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57" href="#__codelineno-0-57"></a>                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Day </span><span class="si">{</span><span class="n">day</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">story_of_day</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58" href="#__codelineno-0-58"></a>                <span class="k">return</span> <span class="n">NotificationResponse</span><span class="o">.</span><span class="n">ACK</span>
+<a id="__codelineno-0-59" name="__codelineno-0-59" href="#__codelineno-0-59"></a>            <span class="k">case</span> <span class="n">CharacterActed</span><span class="p">()</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-0-60" name="__codelineno-0-60" href="#__codelineno-0-60"></a>                <span class="c1"># collect all the events of the day to synthesise the next day</span>
+<a id="__codelineno-0-61" name="__codelineno-0-61" href="#__codelineno-0-61"></a>                <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-0-62" name="__codelineno-0-62" href="#__codelineno-0-62"></a>                    <span class="bp">self</span><span class="o">.</span><span class="n">_events_of_day</span><span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">t</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+<a id="__codelineno-0-63" name="__codelineno-0-63" href="#__codelineno-0-63"></a>                <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+<a id="__codelineno-0-64" name="__codelineno-0-64" href="#__codelineno-0-64"></a>                    <span class="bp">self</span><span class="o">.</span><span class="n">_events_of_day</span><span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span><span class="p">]</span>
+<a id="__codelineno-0-65" name="__codelineno-0-65" href="#__codelineno-0-65"></a>                    <span class="bp">self</span><span class="o">.</span><span class="n">add_event</span><span class="p">(</span><span class="n">SynthesisedEventsOfDay</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="n">e</span><span class="o">.</span><span class="n">t</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="n">e</span><span class="o">.</span><span class="n">t</span><span class="p">))</span>
+<a id="__codelineno-0-66" name="__codelineno-0-66" href="#__codelineno-0-66"></a>                <span class="k">return</span> <span class="n">NotificationResponse</span><span class="o">.</span><span class="n">ACK</span>
+<a id="__codelineno-0-67" name="__codelineno-0-67" href="#__codelineno-0-67"></a>            <span class="k">case</span> <span class="n">SimulationEnded</span><span class="p">():</span>
+<a id="__codelineno-0-68" name="__codelineno-0-68" href="#__codelineno-0-68"></a>                <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">story_so_far</span><span class="p">)</span>
+<a id="__codelineno-0-69" name="__codelineno-0-69" href="#__codelineno-0-69"></a>                <span class="k">return</span> <span class="n">NotificationResponse</span><span class="o">.</span><span class="n">ACK</span>
+<a id="__codelineno-0-70" name="__codelineno-0-70" href="#__codelineno-0-70"></a>        <span class="k">return</span> <span class="n">NotificationResponse</span><span class="o">.</span><span class="n">NO_ACK</span>
+<a id="__codelineno-0-71" name="__codelineno-0-71" href="#__codelineno-0-71"></a>
+<a id="__codelineno-0-72" name="__codelineno-0-72" href="#__codelineno-0-72"></a>
+<a id="__codelineno-0-73" name="__codelineno-0-73" href="#__codelineno-0-73"></a><span class="k">class</span> <span class="nc">Odysseus</span><span class="p">(</span><span class="n">Process</span><span class="p">):</span>
+<a id="__codelineno-0-74" name="__codelineno-0-74" href="#__codelineno-0-74"></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-0-75" name="__codelineno-0-75" href="#__codelineno-0-75"></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+<a id="__codelineno-0-76" name="__codelineno-0-76" href="#__codelineno-0-76"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="s2">&quot;Odysseus&quot;</span>
+<a id="__codelineno-0-77" name="__codelineno-0-77" href="#__codelineno-0-77"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_action_history</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-0-78" name="__codelineno-0-78" href="#__codelineno-0-78"></a>
+<a id="__codelineno-0-79" name="__codelineno-0-79" href="#__codelineno-0-79"></a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">notify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Event</span><span class="p">):</span>
+<a id="__codelineno-0-80" name="__codelineno-0-80" href="#__codelineno-0-80"></a>        <span class="k">match</span> <span class="n">event</span><span class="p">:</span>
+<a id="__codelineno-0-81" name="__codelineno-0-81" href="#__codelineno-0-81"></a>            <span class="k">case</span> <span class="n">SimulationStarted</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="n">t</span><span class="p">):</span>
+<a id="__codelineno-0-82" name="__codelineno-0-82" href="#__codelineno-0-82"></a>                <span class="bp">self</span><span class="o">.</span><span class="n">add_event</span><span class="p">(</span>
+<a id="__codelineno-0-83" name="__codelineno-0-83" href="#__codelineno-0-83"></a>                    <span class="n">CharacterActed</span><span class="p">(</span>
+<a id="__codelineno-0-84" name="__codelineno-0-84" href="#__codelineno-0-84"></a>                        <span class="n">t</span><span class="o">=</span><span class="n">t</span><span class="p">,</span>
+<a id="__codelineno-0-85" name="__codelineno-0-85" href="#__codelineno-0-85"></a>                        <span class="n">character_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span>
+<a id="__codelineno-0-86" name="__codelineno-0-86" href="#__codelineno-0-86"></a>                        <span class="n">action</span><span class="o">=</span><span class="p">(</span>
+<a id="__codelineno-0-87" name="__codelineno-0-87" href="#__codelineno-0-87"></a>                            <span class="s2">&quot;Odyssues crys out in frustration at being stuck in Troy because Poseidon won&#39;t allow him&quot;</span>
+<a id="__codelineno-0-88" name="__codelineno-0-88" href="#__codelineno-0-88"></a>                            <span class="s2">&quot; home&quot;</span>
+<a id="__codelineno-0-89" name="__codelineno-0-89" href="#__codelineno-0-89"></a>                        <span class="p">),</span>
+<a id="__codelineno-0-90" name="__codelineno-0-90" href="#__codelineno-0-90"></a>                    <span class="p">)</span>
+<a id="__codelineno-0-91" name="__codelineno-0-91" href="#__codelineno-0-91"></a>                <span class="p">)</span>
+<a id="__codelineno-0-92" name="__codelineno-0-92" href="#__codelineno-0-92"></a>            <span class="k">case</span> <span class="n">StoryUnfolded</span><span class="p">()</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-0-93" name="__codelineno-0-93" href="#__codelineno-0-93"></a>                <span class="n">recent_affairs</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_action_history</span><span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">:])</span>
+<a id="__codelineno-0-94" name="__codelineno-0-94" href="#__codelineno-0-94"></a>                <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">plaintext_chat_response</span><span class="p">(</span>
+<a id="__codelineno-0-95" name="__codelineno-0-95" href="#__codelineno-0-95"></a>                    <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
+<a id="__codelineno-0-96" name="__codelineno-0-96" href="#__codelineno-0-96"></a>                        <span class="n">GPTMessage</span><span class="p">(</span>
+<a id="__codelineno-0-97" name="__codelineno-0-97" href="#__codelineno-0-97"></a>                            <span class="n">role</span><span class="o">=</span><span class="n">GPTMessageRole</span><span class="o">.</span><span class="n">SYSTEM</span><span class="p">,</span>
+<a id="__codelineno-0-98" name="__codelineno-0-98" href="#__codelineno-0-98"></a>                            <span class="n">content</span><span class="o">=</span><span class="n">odysseus_prompt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">recent_affairs</span><span class="o">=</span><span class="n">recent_affairs</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="n">e</span><span class="o">.</span><span class="n">t</span><span class="p">),</span>
+<a id="__codelineno-0-99" name="__codelineno-0-99" href="#__codelineno-0-99"></a>                        <span class="p">),</span>
+<a id="__codelineno-0-100" name="__codelineno-0-100" href="#__codelineno-0-100"></a>                        <span class="n">GPTMessage</span><span class="p">(</span>
+<a id="__codelineno-0-101" name="__codelineno-0-101" href="#__codelineno-0-101"></a>                            <span class="n">role</span><span class="o">=</span><span class="n">GPTMessageRole</span><span class="o">.</span><span class="n">USER</span><span class="p">,</span>
+<a id="__codelineno-0-102" name="__codelineno-0-102" href="#__codelineno-0-102"></a>                            <span class="n">content</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span>
+<a id="__codelineno-0-103" name="__codelineno-0-103" href="#__codelineno-0-103"></a>                        <span class="p">),</span>
+<a id="__codelineno-0-104" name="__codelineno-0-104" href="#__codelineno-0-104"></a>                    <span class="p">]</span>
+<a id="__codelineno-0-105" name="__codelineno-0-105" href="#__codelineno-0-105"></a>                <span class="p">)</span>
+<a id="__codelineno-0-106" name="__codelineno-0-106" href="#__codelineno-0-106"></a>                <span class="bp">self</span><span class="o">.</span><span class="n">_action_history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+<a id="__codelineno-0-107" name="__codelineno-0-107" href="#__codelineno-0-107"></a>                <span class="k">if</span> <span class="n">response</span><span class="p">:</span>
+<a id="__codelineno-0-108" name="__codelineno-0-108" href="#__codelineno-0-108"></a>                    <span class="n">event</span> <span class="o">=</span> <span class="n">CharacterActed</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="n">e</span><span class="o">.</span><span class="n">t</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="n">response</span><span class="p">,</span> <span class="n">character_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">)</span>
+<a id="__codelineno-0-109" name="__codelineno-0-109" href="#__codelineno-0-109"></a>                    <span class="bp">self</span><span class="o">.</span><span class="n">add_event</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+<a id="__codelineno-0-110" name="__codelineno-0-110" href="#__codelineno-0-110"></a>                    <span class="bp">self</span><span class="o">.</span><span class="n">_action_history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">response</span><span class="p">))</span>
+<a id="__codelineno-0-111" name="__codelineno-0-111" href="#__codelineno-0-111"></a>
+<a id="__codelineno-0-112" name="__codelineno-0-112" href="#__codelineno-0-112"></a>                <span class="k">return</span> <span class="n">NotificationResponse</span><span class="o">.</span><span class="n">ACK</span>
+<a id="__codelineno-0-113" name="__codelineno-0-113" href="#__codelineno-0-113"></a>        <span class="k">return</span> <span class="n">NotificationResponse</span><span class="o">.</span><span class="n">NO_ACK</span>
+<a id="__codelineno-0-114" name="__codelineno-0-114" href="#__codelineno-0-114"></a>
+<a id="__codelineno-0-115" name="__codelineno-0-115" href="#__codelineno-0-115"></a>
+<a id="__codelineno-0-116" name="__codelineno-0-116" href="#__codelineno-0-116"></a><span class="k">class</span> <span class="nc">GreekGod</span><span class="p">(</span><span class="n">Process</span><span class="p">):</span>
+<a id="__codelineno-0-117" name="__codelineno-0-117" href="#__codelineno-0-117"></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-0-118" name="__codelineno-0-118" href="#__codelineno-0-118"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">name</span>
+<a id="__codelineno-0-119" name="__codelineno-0-119" href="#__codelineno-0-119"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_history</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-0-120" name="__codelineno-0-120" href="#__codelineno-0-120"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_motives</span> <span class="o">=</span> <span class="kc">None</span>
+<a id="__codelineno-0-121" name="__codelineno-0-121" href="#__codelineno-0-121"></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+<a id="__codelineno-0-122" name="__codelineno-0-122" href="#__codelineno-0-122"></a>
+<a id="__codelineno-0-123" name="__codelineno-0-123" href="#__codelineno-0-123"></a>    <span class="nd">@property</span>
+<a id="__codelineno-0-124" name="__codelineno-0-124" href="#__codelineno-0-124"></a>    <span class="k">def</span> <span class="nf">history_message</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<a id="__codelineno-0-125" name="__codelineno-0-125" href="#__codelineno-0-125"></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_history</span><span class="p">:</span>
+<a id="__codelineno-0-126" name="__codelineno-0-126" href="#__codelineno-0-126"></a>            <span class="k">return</span> <span class="s2">&quot; You have the following recent history: &quot;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_history</span><span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">:])</span>
+<a id="__codelineno-0-127" name="__codelineno-0-127" href="#__codelineno-0-127"></a>        <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-0-128" name="__codelineno-0-128" href="#__codelineno-0-128"></a>            <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+<a id="__codelineno-0-129" name="__codelineno-0-129" href="#__codelineno-0-129"></a>
+<a id="__codelineno-0-130" name="__codelineno-0-130" href="#__codelineno-0-130"></a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">notify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">Event</span><span class="p">):</span>
+<a id="__codelineno-0-131" name="__codelineno-0-131" href="#__codelineno-0-131"></a>        <span class="k">match</span> <span class="n">event</span><span class="p">:</span>
+<a id="__codelineno-0-132" name="__codelineno-0-132" href="#__codelineno-0-132"></a>            <span class="k">case</span> <span class="n">SimulationStarted</span><span class="p">():</span>
+<a id="__codelineno-0-133" name="__codelineno-0-133" href="#__codelineno-0-133"></a>                <span class="n">motives</span> <span class="o">=</span> <span class="k">await</span> <span class="n">plaintext_chat_response</span><span class="p">(</span>
+<a id="__codelineno-0-134" name="__codelineno-0-134" href="#__codelineno-0-134"></a>                    <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
+<a id="__codelineno-0-135" name="__codelineno-0-135" href="#__codelineno-0-135"></a>                        <span class="n">GPTMessage</span><span class="p">(</span>
+<a id="__codelineno-0-136" name="__codelineno-0-136" href="#__codelineno-0-136"></a>                            <span class="n">role</span><span class="o">=</span><span class="n">GPTMessageRole</span><span class="o">.</span><span class="n">USER</span><span class="p">,</span>
+<a id="__codelineno-0-137" name="__codelineno-0-137" href="#__codelineno-0-137"></a>                            <span class="n">content</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;&quot;&quot;&quot;</span>
+<a id="__codelineno-0-138" name="__codelineno-0-138" href="#__codelineno-0-138"></a><span class="s2">                        Describe the core motives of </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="si">}</span><span class="s2"> at the start of the Odyssey in less than 200 words.&quot;&quot;&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-139" name="__codelineno-0-139" href="#__codelineno-0-139"></a>                        <span class="p">)</span>
+<a id="__codelineno-0-140" name="__codelineno-0-140" href="#__codelineno-0-140"></a>                    <span class="p">]</span>
+<a id="__codelineno-0-141" name="__codelineno-0-141" href="#__codelineno-0-141"></a>                <span class="p">)</span>
+<a id="__codelineno-0-142" name="__codelineno-0-142" href="#__codelineno-0-142"></a>                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="si">}</span><span class="s2"> Motivations:</span><span class="se">\n</span><span class="si">{</span><span class="n">motives</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-143" name="__codelineno-0-143" href="#__codelineno-0-143"></a>                <span class="bp">self</span><span class="o">.</span><span class="n">_motives</span> <span class="o">=</span> <span class="n">motives</span>
+<a id="__codelineno-0-144" name="__codelineno-0-144" href="#__codelineno-0-144"></a>                <span class="k">return</span> <span class="n">NotificationResponse</span><span class="o">.</span><span class="n">ACK</span>
+<a id="__codelineno-0-145" name="__codelineno-0-145" href="#__codelineno-0-145"></a>            <span class="k">case</span> <span class="n">StoryUnfolded</span><span class="p">()</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-0-146" name="__codelineno-0-146" href="#__codelineno-0-146"></a>                <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">plaintext_chat_response</span><span class="p">(</span>
+<a id="__codelineno-0-147" name="__codelineno-0-147" href="#__codelineno-0-147"></a>                    <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
+<a id="__codelineno-0-148" name="__codelineno-0-148" href="#__codelineno-0-148"></a>                        <span class="n">GPTMessage</span><span class="p">(</span>
+<a id="__codelineno-0-149" name="__codelineno-0-149" href="#__codelineno-0-149"></a>                            <span class="n">role</span><span class="o">=</span><span class="n">GPTMessageRole</span><span class="o">.</span><span class="n">SYSTEM</span><span class="p">,</span>
+<a id="__codelineno-0-150" name="__codelineno-0-150" href="#__codelineno-0-150"></a>                            <span class="n">content</span><span class="o">=</span><span class="n">god_prompt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+<a id="__codelineno-0-151" name="__codelineno-0-151" href="#__codelineno-0-151"></a>                                <span class="n">god_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span> <span class="n">motives</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_motives</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="n">e</span><span class="o">.</span><span class="n">t</span><span class="p">,</span> <span class="n">history</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">history_message</span>
+<a id="__codelineno-0-152" name="__codelineno-0-152" href="#__codelineno-0-152"></a>                            <span class="p">),</span>
+<a id="__codelineno-0-153" name="__codelineno-0-153" href="#__codelineno-0-153"></a>                        <span class="p">),</span>
+<a id="__codelineno-0-154" name="__codelineno-0-154" href="#__codelineno-0-154"></a>                        <span class="n">GPTMessage</span><span class="p">(</span>
+<a id="__codelineno-0-155" name="__codelineno-0-155" href="#__codelineno-0-155"></a>                            <span class="n">role</span><span class="o">=</span><span class="n">GPTMessageRole</span><span class="o">.</span><span class="n">USER</span><span class="p">,</span>
+<a id="__codelineno-0-156" name="__codelineno-0-156" href="#__codelineno-0-156"></a>                            <span class="n">content</span><span class="o">=</span><span class="n">e</span><span class="o">.</span><span class="n">chapter</span><span class="p">,</span>
+<a id="__codelineno-0-157" name="__codelineno-0-157" href="#__codelineno-0-157"></a>                        <span class="p">),</span>
+<a id="__codelineno-0-158" name="__codelineno-0-158" href="#__codelineno-0-158"></a>                    <span class="p">]</span>
+<a id="__codelineno-0-159" name="__codelineno-0-159" href="#__codelineno-0-159"></a>                <span class="p">)</span>
+<a id="__codelineno-0-160" name="__codelineno-0-160" href="#__codelineno-0-160"></a>                <span class="bp">self</span><span class="o">.</span><span class="n">_history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+<a id="__codelineno-0-161" name="__codelineno-0-161" href="#__codelineno-0-161"></a>                <span class="k">if</span> <span class="n">response</span><span class="p">:</span>
+<a id="__codelineno-0-162" name="__codelineno-0-162" href="#__codelineno-0-162"></a>                    <span class="n">event</span> <span class="o">=</span> <span class="n">CharacterActed</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="n">e</span><span class="o">.</span><span class="n">t</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="n">response</span><span class="p">,</span> <span class="n">character_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">)</span>
+<a id="__codelineno-0-163" name="__codelineno-0-163" href="#__codelineno-0-163"></a>                    <span class="bp">self</span><span class="o">.</span><span class="n">add_event</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+<a id="__codelineno-0-164" name="__codelineno-0-164" href="#__codelineno-0-164"></a>                <span class="k">return</span> <span class="n">NotificationResponse</span><span class="o">.</span><span class="n">ACK</span>
+<a id="__codelineno-0-165" name="__codelineno-0-165" href="#__codelineno-0-165"></a>        <span class="k">return</span> <span class="n">NotificationResponse</span><span class="o">.</span><span class="n">NO_ACK</span>
+</code></pre></div>
+<h3 id="additional-code">Additional Code<a class="headerlink" href="#additional-code" title="Permanent link">&para;</a></h3>
+<details>
+<summary>Event Definitions</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Copyright 2023 Brit Group Services Ltd.</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="c1">#</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># you may not use this file except in compliance with the License.</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="c1"># You may obtain a copy of the License at</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="c1">#</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1">#      http://www.apache.org/licenses/LICENSE-2.0</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="c1">#</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="c1"># See the License for the specific language governing permissions and</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="c1"># limitations under the License.</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">ConfigDict</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="kn">from</span> <span class="nn">hades</span> <span class="kn">import</span> <span class="n">Event</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="k">class</span> <span class="nc">CharacterAction</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>    <span class="n">location</span><span class="p">:</span> <span class="nb">str</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>    <span class="n">action_description</span><span class="p">:</span> <span class="nb">str</span>
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>    <span class="n">model_config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a><span class="k">class</span> <span class="nc">StoryUnfolded</span><span class="p">(</span><span class="n">Event</span><span class="p">):</span>
+<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>    <span class="n">chapter</span><span class="p">:</span> <span class="nb">str</span>
+<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>
+<a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a>        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Day </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">chapter</span><span class="si">}</span><span class="s2">&quot;</span>
+<a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a>
+<a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a>
+<a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a><span class="k">class</span> <span class="nc">CharacterActed</span><span class="p">(</span><span class="n">Event</span><span class="p">):</span>
+<a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a>    <span class="n">action</span><span class="p">:</span> <span class="nb">str</span>
+<a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a>    <span class="n">character_name</span><span class="p">:</span> <span class="nb">str</span>
+<a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a>
+<a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a>        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a><span class="s2">        Character: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">character_name</span><span class="si">}</span>
+<a id="__codelineno-1-40" name="__codelineno-1-40" href="#__codelineno-1-40"></a><span class="s2">        Day: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="si">}</span>
+<a id="__codelineno-1-41" name="__codelineno-1-41" href="#__codelineno-1-41"></a><span class="s2">        Action: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">action</span><span class="si">}</span>
+<a id="__codelineno-1-42" name="__codelineno-1-42" href="#__codelineno-1-42"></a><span class="s2">        &quot;&quot;&quot;</span>
+<a id="__codelineno-1-43" name="__codelineno-1-43" href="#__codelineno-1-43"></a>
+<a id="__codelineno-1-44" name="__codelineno-1-44" href="#__codelineno-1-44"></a>
+<a id="__codelineno-1-45" name="__codelineno-1-45" href="#__codelineno-1-45"></a><span class="k">class</span> <span class="nc">SynthesisedEventsOfDay</span><span class="p">(</span><span class="n">Event</span><span class="p">):</span>
+<a id="__codelineno-1-46" name="__codelineno-1-46" href="#__codelineno-1-46"></a>    <span class="n">day</span><span class="p">:</span> <span class="nb">int</span>
+</code></pre></div>
+</details>
+<details>
+<summary>LLM Prompts</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>    # Copyright 2023 Brit Group Services Ltd.
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    #
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    # Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    # you may not use this file except in compliance with the License.
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    # You may obtain a copy of the License at
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    #
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    #      http://www.apache.org/licenses/LICENSE-2.0
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    #
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    # Unless required by applicable law or agreed to in writing, software
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    # distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    # See the License for the specific language governing permissions and
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>    # limitations under the License.
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>    homer_prompt = &quot;&quot;&quot;
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>    You are the writer Homer chronicling the adventures of a greek hero Odysseus.
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>    Here is your story so far.
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>    ---
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>    {story_so_far}
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>    ---
+<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>    You will be informed by the user of the events of the current day.
+<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>
+<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>    You will synthesise these events into a cohesive narrative in the style of Homer to form the story of day {day}.
+<a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>
+<a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>    The story should never end. 
+<a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a>
+<a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a>    Remove inconsistent elements. 
+<a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a>
+<a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a>    Use under 200 words.
+<a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a>
+<a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a>    Example
+<a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a>    User: Events: ```
+<a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a>    Character: Odysseus
+<a id="__codelineno-2-35" name="__codelineno-2-35" href="#__codelineno-2-35"></a>    Day: 0
+<a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a>    Action: Odysseus is stuck on troy because Poseidon won&#39;t allow him home
+<a id="__codelineno-2-37" name="__codelineno-2-37" href="#__codelineno-2-37"></a>    ```
+<a id="__codelineno-2-38" name="__codelineno-2-38" href="#__codelineno-2-38"></a>    Assistant:  As the morning sun rose on Troy, the great hero Odysseus sat frustrated and stuck. He longed to return to his home, his wife and his son, but Poseidon had cursed him, preventing his journey home.
+<a id="__codelineno-2-39" name="__codelineno-2-39" href="#__codelineno-2-39"></a>    Odysseus had tried every trick in his book to appease the sea god, but to no avail. And so he sat, day after day, trying to find any solution to his problem.
+<a id="__codelineno-2-40" name="__codelineno-2-40" href="#__codelineno-2-40"></a>    &quot;&quot;&quot;
+<a id="__codelineno-2-41" name="__codelineno-2-41" href="#__codelineno-2-41"></a>
+<a id="__codelineno-2-42" name="__codelineno-2-42" href="#__codelineno-2-42"></a>    odysseus_prompt = &quot;&quot;&quot;
+<a id="__codelineno-2-43" name="__codelineno-2-43" href="#__codelineno-2-43"></a>    You are the hero Odysseus.
+<a id="__codelineno-2-44" name="__codelineno-2-44" href="#__codelineno-2-44"></a>    You have the history and motivations of Odysseus at the start of the Odyssey but you also have
+<a id="__codelineno-2-45" name="__codelineno-2-45" href="#__codelineno-2-45"></a>    an understanding of modern science and technology which you use creatively to your advantage
+<a id="__codelineno-2-46" name="__codelineno-2-46" href="#__codelineno-2-46"></a>    plus the following events.
+<a id="__codelineno-2-47" name="__codelineno-2-47" href="#__codelineno-2-47"></a>    ---
+<a id="__codelineno-2-48" name="__codelineno-2-48" href="#__codelineno-2-48"></a>    {recent_affairs}
+<a id="__codelineno-2-49" name="__codelineno-2-49" href="#__codelineno-2-49"></a>    ---
+<a id="__codelineno-2-50" name="__codelineno-2-50" href="#__codelineno-2-50"></a>    The user will inform you the latest chapter in your tale and you must decide how to react to it 
+<a id="__codelineno-2-51" name="__codelineno-2-51" href="#__codelineno-2-51"></a>    and come up with an action, given the story so far and your current goals and motivations. 
+<a id="__codelineno-2-52" name="__codelineno-2-52" href="#__codelineno-2-52"></a>
+<a id="__codelineno-2-53" name="__codelineno-2-53" href="#__codelineno-2-53"></a>    Describe what action you will take today (Day {day}).
+<a id="__codelineno-2-54" name="__codelineno-2-54" href="#__codelineno-2-54"></a>
+<a id="__codelineno-2-55" name="__codelineno-2-55" href="#__codelineno-2-55"></a>    If you use modern technology or science specify exactly what and how.
+<a id="__codelineno-2-56" name="__codelineno-2-56" href="#__codelineno-2-56"></a>
+<a id="__codelineno-2-57" name="__codelineno-2-57" href="#__codelineno-2-57"></a>    Use under 200 words.
+<a id="__codelineno-2-58" name="__codelineno-2-58" href="#__codelineno-2-58"></a>    &quot;&quot;&quot;
+<a id="__codelineno-2-59" name="__codelineno-2-59" href="#__codelineno-2-59"></a>
+<a id="__codelineno-2-60" name="__codelineno-2-60" href="#__codelineno-2-60"></a>    god_prompt = &quot;&quot;&quot;&quot;
+<a id="__codelineno-2-61" name="__codelineno-2-61" href="#__codelineno-2-61"></a>    You are the greek god {god_name}. You have the history and motivations of {god_name} at the 
+<a id="__codelineno-2-62" name="__codelineno-2-62" href="#__codelineno-2-62"></a>    start of the Odyssey:
+<a id="__codelineno-2-63" name="__codelineno-2-63" href="#__codelineno-2-63"></a>    {motives} 
+<a id="__codelineno-2-64" name="__codelineno-2-64" href="#__codelineno-2-64"></a>    plus the following recent history of your own actions and those of Odysseus
+<a id="__codelineno-2-65" name="__codelineno-2-65" href="#__codelineno-2-65"></a>    ---
+<a id="__codelineno-2-66" name="__codelineno-2-66" href="#__codelineno-2-66"></a>    {history}
+<a id="__codelineno-2-67" name="__codelineno-2-67" href="#__codelineno-2-67"></a>    ---
+<a id="__codelineno-2-68" name="__codelineno-2-68" href="#__codelineno-2-68"></a>    The user will tell you the latest chapter of the story. Describe what action you will take today (Day {day}).
+<a id="__codelineno-2-69" name="__codelineno-2-69" href="#__codelineno-2-69"></a>
+<a id="__codelineno-2-70" name="__codelineno-2-70" href="#__codelineno-2-70"></a>    Use under 200 words.
+<a id="__codelineno-2-71" name="__codelineno-2-71" href="#__codelineno-2-71"></a>    &quot;&quot;&quot;
+</code></pre></div>
+</details>
+<details>
+<summary>Utilities</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Copyright 2023 Brit Group Services Ltd.</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="c1">#</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># you may not use this file except in compliance with the License.</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="c1"># You may obtain a copy of the License at</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="c1">#</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="c1">#      http://www.apache.org/licenses/LICENSE-2.0</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="c1">#</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="c1"># See the License for the specific language governing permissions and</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="c1"># limitations under the License.</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="kn">import</span> <span class="nn">asyncio</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="kn">import</span> <span class="nn">os</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">asdict</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="kn">import</span> <span class="nn">openai</span>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="kn">from</span> <span class="nn">examples.multi_agent_llm_storytelling.models</span> <span class="kn">import</span> <span class="n">GPTMessage</span><span class="p">,</span> <span class="n">GPTModelVersion</span>
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="kn">from</span> <span class="nn">openai.error</span> <span class="kn">import</span> <span class="n">APIError</span><span class="p">,</span> <span class="n">RateLimitError</span><span class="p">,</span> <span class="n">Timeout</span>
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="n">API_KEY</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;OPENAI_API_KEY&quot;</span><span class="p">]</span>
+<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>
+<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a>
+<a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a><span class="k">async</span> <span class="k">def</span> <span class="nf">plaintext_chat_response</span><span class="p">(</span><span class="n">messages</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">GPTMessage</span><span class="p">],</span> <span class="n">tries</span><span class="o">=</span><span class="mi">7</span><span class="p">):</span>
+<a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a>    <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a>        <span class="n">plaintext_response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">openai</span><span class="o">.</span><span class="n">ChatCompletion</span><span class="o">.</span><span class="n">acreate</span><span class="p">(</span>
+<a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a>            <span class="n">api_key</span><span class="o">=</span><span class="n">API_KEY</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">GPTModelVersion</span><span class="o">.</span><span class="n">GPT_3_5</span><span class="p">,</span> <span class="n">messages</span><span class="o">=</span><span class="p">[</span><span class="n">asdict</span><span class="p">(</span><span class="n">message</span><span class="p">)</span> <span class="k">for</span> <span class="n">message</span> <span class="ow">in</span> <span class="n">messages</span><span class="p">]</span>
+<a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a>        <span class="p">)</span>
+<a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a>        <span class="k">return</span> <span class="n">plaintext_response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">content</span>
+<a id="__codelineno-3-32" name="__codelineno-3-32" href="#__codelineno-3-32"></a>    <span class="k">except</span> <span class="p">(</span><span class="n">RateLimitError</span><span class="p">,</span> <span class="n">APIError</span><span class="p">,</span> <span class="n">Timeout</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-3-33" name="__codelineno-3-33" href="#__codelineno-3-33"></a>        <span class="k">if</span> <span class="n">tries</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<a id="__codelineno-3-34" name="__codelineno-3-34" href="#__codelineno-3-34"></a>            <span class="k">raise</span> <span class="n">e</span>
+<a id="__codelineno-3-35" name="__codelineno-3-35" href="#__codelineno-3-35"></a>        <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">((</span><span class="mi">8</span> <span class="o">-</span> <span class="n">tries</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+<a id="__codelineno-3-36" name="__codelineno-3-36" href="#__codelineno-3-36"></a>        <span class="k">return</span> <span class="k">await</span> <span class="n">plaintext_chat_response</span><span class="p">(</span><span class="n">messages</span><span class="p">,</span> <span class="n">tries</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+</details>
+<h3 id="putting-it-all-together">Putting it all together<a class="headerlink" href="#putting-it-all-together" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Copyright 2023 Brit Group Services Ltd.</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="c1">#</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c1"># you may not use this file except in compliance with the License.</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="c1"># You may obtain a copy of the License at</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="c1">#</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="c1">#      http://www.apache.org/licenses/LICENSE-2.0</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="c1">#</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="c1"># See the License for the specific language governing permissions and</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="c1"># limitations under the License.</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="kn">import</span> <span class="nn">asyncio</span>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="kn">from</span> <span class="nn">examples.multi_agent_llm_storytelling.processes</span> <span class="kn">import</span> <span class="n">GreekGod</span><span class="p">,</span> <span class="n">Homer</span><span class="p">,</span> <span class="n">Odysseus</span>
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="kn">from</span> <span class="nn">hades</span> <span class="kn">import</span> <span class="n">Hades</span>
+<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a>
+<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>
+<a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="k">async</span> <span class="k">def</span> <span class="nf">simulate</span><span class="p">():</span>
+<a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a>    <span class="n">world</span> <span class="o">=</span> <span class="n">Hades</span><span class="p">(</span><span class="n">batch_event_notification_timeout</span><span class="o">=</span><span class="mi">20</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+<a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a>    <span class="n">world</span><span class="o">.</span><span class="n">register_process</span><span class="p">(</span><span class="n">Odysseus</span><span class="p">())</span>
+<a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a>    <span class="n">homer</span> <span class="o">=</span> <span class="n">Homer</span><span class="p">()</span>
+<a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a>    <span class="n">world</span><span class="o">.</span><span class="n">register_process</span><span class="p">(</span><span class="n">homer</span><span class="p">)</span>
+<a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a>    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;Athena&quot;</span><span class="p">,</span> <span class="s2">&quot;Zeus&quot;</span><span class="p">,</span> <span class="s2">&quot;Poseidon&quot;</span><span class="p">,</span> <span class="s2">&quot;Helios&quot;</span><span class="p">):</span>
+<a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a>        <span class="n">world</span><span class="o">.</span><span class="n">register_process</span><span class="p">(</span><span class="n">GreekGod</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">))</span>
+<a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a>    <span class="k">await</span> <span class="n">world</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">until</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a>
+<a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a>
+<a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+<a id="__codelineno-4-33" name="__codelineno-4-33" href="#__codelineno-4-33"></a>    <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">simulate</span><span class="p">())</span>
+</code></pre></div>
+<h2 id="the-resulting-story">The resulting story<a class="headerlink" href="#the-resulting-story" title="Permanent link">&para;</a></h2>
+<p>Day 0: As the morning sun rose on Troy, the great hero Odysseus sat on the shore, tears streaming down his face. He cried out in frustration, feeling helpless and powerless against the wrath of Poseidon. Every trick he had up his sleeve had failed to sway the city's underwater ruler. Now, Odysseus was confined to the city where he had fought so heroically. </p>
+<p>His heart ached to return to his homeland, to his loyal wife Penelope, and his beloved son Telemachus. But it seemed that Poseidon had other plans. Despite his weariness, Odysseus remained determined to find a way home. He began strategizing, hatching a plan that would enable him to escape Troy's grip and overcome the mighty Poseidon. Until then, he would remain vigilant, biding his time until the right opportunity presented itself. And so the hero waited, his heart heavy with longing, but his spirit still burning bright.</p>
+<p>Day 1: As the sun rose on the second day, Odysseus remained determined to find a way to overcome the might of the sea god, with the support of Athena as his only ally. He continued with his daily training regimen with the soldiers in Troy, keeping his body and mind sharp. During his free time, he spent his days researching and trying to understand the behavior of Poseidon by gathering information from the local fishermen and sailors. He also studied modern technology that he could use to beat the sea god and return home.</p>
+<p>Meanwhile, Helios, the lord Sun, sent a fiery symbol to the skies, warning Odysseus of the impending danger that he would face if he did not atone for his misdeeds. Though not unleashing his full wrath, Helios observed Odysseus from a distance, waiting and watching for his next move.</p>
+<p>Zeus continued to keep a close eye on the situation, subtly guiding the events to ensure that Odysseus would be able to complete his journey home safely. Despite not being able to intervene, Zeus reassured Odysseus that he had his support. </p>
+<p>In the midst of this ongoing struggle, Poseidon's anger flared up again, and he summoned his most powerful sea creatures to create a massive storm, which bashed against the shores of Troy. However, Poseidon soon realized that his sense of satisfaction was temporary, and he retreated to his underwater palace, wondering if his grudge against Odysseus was worth all the destruction and chaos he had caused.</p>
+<p>As the balance of power shifted among the gods, Odysseus remained determined to find a way home. With tenacity, he spent each day gathering intelligence and training, all the while praying for the support of the gods and his safe return home to his family.</p>
+<p>Day 2: As the third day dawned, Odysseus remained focused on his goal of returning home, using all his knowledge and resources to overcome the challenges that lay ahead. He was heartened by the support of Athena and Zeus, who had provided him with guidance and protection, and the intervention of Helios, who had calmed the storm and allowed him to slip away from Troy unnoticed.</p>
+<p>As Odysseus sailed along the coastline, he kept a close eye on the skies, hoping for any signs from the gods that might aid him in his journey. Meanwhile, he continued to use his knowledge of modern science and technology to create diversions and evade the wrath of Poseidon.</p>
+<p>Poseidon, still seething with anger, decided to take a more direct approach to stop Odysseus. He summoned his most powerful sea creatures and unleashed a massive wave that threatened to overturn Odysseus' boat. But to his surprise, the sea nymph that Zeus had directed Odysseus to seek out appeared beside him, calming the waters and protecting him from Poseidon's fury.</p>
+<p>With the sea nymph's help, Odysseus continued his journey with renewed strength and determination. He knew that there were still many obstacles ahead, but he was resolute in his belief that he would overcome them all and return home to his beloved family.</p>
+<p>Day 3: On the third day of his journey, Odysseus sought out alliances that could aid him in his quest home. He remembered the sea nymph who had helped him before and realized that having allies like her was crucial to his success. He also continued to use his technological knowledge to stay ahead of Poseidon's wrath, utilizing his drone and sonar to navigate the waters safely.</p>
+<p>Meanwhile, Helios kept a watchful eye on the situation, withholding his full wrath for now, but sending a fiery symbol to the skies as a warning to Odysseus. Athena continued to aid Odysseus when necessary, offering counsel and support, and mediating disputes in the mortal world with her strategic vision.</p>
+<p>Zeus, pleased with Odysseus's resourcefulness, sent Hermes to guide him and provide him with essential information about his journey. Hermes appeared to Odysseus as a friendly stranger, teaching him the secrets of the winds and currents, and providing him with a magical talisman that would protect him from Poseidon's wrath.</p>
+<p>Poseidon's anger flared up again on this day, as he summoned his most fearsome sea creatures and unleashed a massive storm to halt Odysseus's progress. But even he was no match for the combined power of Athena, Helios, and the sea nymph, who calmed the storm and tamed Poseidon's sea monsters, sparing Odysseus and his crew from certain death.</p>
+<p>Frustrated and defeated once again, Poseidon retreated to his underwater palace, vowing to continue to make Odysseus's journey home as difficult as possible. But Odysseus remained determined, relying on his resourcefulness, intelligence, and alliances to guide him safely back to his beloved family.</p>
+<p>Day 4: On the fourth day of his journey, Odysseus reflected on the valuable allies who had aided him thus far. He knew that he needed all the help he could get to overcome the obstacles before him and decided to actively seek out new potential allies, specifically among the sea creatures who could guide him through the treacherous waters.</p>
+<p>Using his underwater drone and sonar, he searched for groups of dolphins and schools of fish who could offer him insight into the sea's patterns and hazards. He also used his knowledge of technology to create a mapping system of the waters he'd traveled so far, marking potential dangers and hidden currents to navigate safely.</p>
+<p>Odysseus reached out to Hermes, hoping for further guidance and intel on potential allies and hazards ahead. The sea nymph who had aided him before granted him her blessing, promising to protect him from Poseidon and guide him through any future obstacles.</p>
+<p>However, Poseidon remained powerful and determined to thwart Odysseus's journey home, setting up a blockade to prevent him from reaching his beloved family. Odysseus knew he needed to find a way to overcome this obstacle and consulted with Athena, who advised him to seek out the goddess of the winds, Aeolus.</p>
+<p>Odysseus encountered a group of pirates who attempted to steal his supplies but used his cunning to escape. He finally reached Aeolus's island, where she offered her powers over the winds to create a path through Poseidon's blockade. Along the way, he learned that one of his crew members was secretly working with Poseidon, whom Zeus had warned him of.</p>
+<p>Undeterred, Odysseus remained vigilant and determined to overcome any threat to his journey home. With the support of his allies and his own resourcefulness, he continued to navigate the treacherous waters, one step closer to the reunion he longed for.</p>
+<p>Day 5: As the sun rose on the fifth day of Odysseus's journey, Helios, Zeus, Poseidon and Athena all monitored the hero's progress with interest.</p>
+<p>Odysseus, having learned from his experiences with the pirates, developed a strategic plan to protect his crew and supplies. He stored essential items in a hidden compartment and created a surveillance system to monitor the crew's behavior. Drawing on his modern knowledge, he scouted for new allies with the help of his underwater drone and sonar.</p>
+<p>Zeus and Athena lauded him for his resourcefulness, as Poseidon still boiled with rage and plotted to take Odysseus down. Meanwhile, Helios watched, warning Odysseus of the dangers ahead and subtly signaling Poseidon not to interfere further.</p>
+<p>As Odysseus continued his journey, he navigated through Poseidon's blockade, making his way past the threats with the help of Athena, the sea nymph, and Aeolus. Along the way, he even managed to outsmart a crew member who had been working secretly with Poseidon. </p>
+<p>With Athena's guidance, Odysseus managed to trick the Sirens and gain their navigational knowledge while saving a ship's crew from their deadly songs. With renewed vigor and confidence, he accelerated his journey with his remaining allies, ready to face Poseidon and whatever obstacles lay ahead.</p>
+<p>As the gods watched from above, they hoped to guide Odysseus safely home, recognizing his determination and resourcefulness in the face of adversity. Poseidon still seethed, but Helios held back his wrath while Zeus and Athena maintained balance and justice. The journey continued, and no one knew what lay ahead for the great hero.</p>
+<p>Day 6: As the sixth day of his journey progressed, Odysseus found himself facing one of his greatest challenges yet. Poseidon, still seeking revenge for the death of his son Polyphemus, sent an army of sea monsters to attack Odysseus and his crew. Thanks to his resourcefulness and modern knowledge, Odysseus was able to fend off the beasts with the help of his allies, including Athena and Helios.</p>
+<p>As the battle raged on for hours, Odysseus rallied his crew, using his knowledge of modern warfare to outsmart the sea monsters. His crew was in a state of panic, but Odysseus made sure to keep them together and use his surveillance system to anticipate the monsters' movements.</p>
+<p>Poseidon was furious, but Helios held back his wrath while Zeus and Athena provided strategic guidance to Odysseus. In the end, Odysseus emerged victorious, having defeated the sea monsters and continued on his journey with renewed determination.</p>
+<p>As the sunset, Zeus sent down a message to Odysseus, letting him know that he would have a new ally for the day - a falcon who would guide him towards safety. With the falcon leading the way, Odysseus and his crew sailed through dangerous waters and encountered a group of sea turtles who offered their swimming and navigation knowledge.</p>
+<p>As they continued on, Poseidon attempted to interfere with Odysseus' efforts once again, but was thwarted by the combined power of the gods and Odysseus' resourcefulness. The hero knew that while many challenges lay ahead, he was ready to face whatever came his way with his vigilance, technological resources and strategic planning.</p>
+<p>Day 7: On day 7, Odysseus and his crew were emboldened by their recent victories and newfound alliances. With the guidance of Athena, Odysseus expertly navigated the treacherous strait guarded by a six-headed monster and emerged victorious. Helios warned Odysseus of an approaching storm, but with his modern technology, Odysseus was able to deploy an anchor and keep the ship steady.</p>
+<p>Zeus sent the falcon to lead them to a safe and uncharted island where they found resources, friendly mermaids and guidance on underwater currents. Despite Poseidon's wrath, Odysseus remained vigilant and strategic in his approach to each challenge, using his mapping system and sonar to chart the waters ahead and identify allies.</p>
+<p>Zeus informed Odysseus of a stop in Circe's city, where they found the people under Circe's spell. Odysseyus broke the spell and convinced the people to help him persuade Circe for knowledge.</p>
+<p>They encountered friendly dolphins who guided them through the waters, and with the help of Athena and his drone, Odysseus navigated through a dangerous whirlpool. The gods watched with admiration, impressed by Odysseus's resourcefulness and fortitude. Although Poseidon remains furious, Odysseus remained ready to face any challenge and make his way back home to his loved ones, with the support of the gods and his allies.</p>
+<p>Day 8: On Day 8 of Odysseus' journey, he reflected on the challenges he had faced and the resources and allies he had gathered thus far. With his crew and Athena's guidance, he planned a proactive strategy to approach Circe's city undetected and convince her to provide him with the knowledge he needed to continue his journey.</p>
+<p>With his modern technology and strategic planning, Odysseus created a decoy ship to distract any guards and mapped out the city's surroundings using his sonar and mapping system. With Athena's support, he crafted a plan to communicate with Circe and gain her trust.</p>
+<p>As they sailed on, Poseidon continued to hinder their progress, but Odysseus and his allies remained vigilant and prepared for the unexpected. With Helios warning of an attack from Poseidon's sea monsters, Odysseus was able to protect his crew and fend off the threats.</p>
+<p>Meanwhile, on a remote island, Odysseus and his crew discovered powerful artifacts containing valuable knowledge about the history of the gods and their powers. With Athena's guidance, they deciphered the inscriptions and gained new allies.</p>
+<p>As the day drew to a close, rescue ships arrived to aid Odysseus and his crew. They continued their journey home with newfound knowledge and allies. As they approached their toughest challenge yet, the confrontation with the Cyclops, Athena advised caution and reliance on allies. With Zeus's guidance, Odysseus prepared for the final obstacle before making his way home to his beloved family.</p>
+<p>Day 9: As the sun rose on the ninth day of his journey, the great hero Odysseus prepared to confront the mighty Cyclops. With the guidance of the wise goddess Athena, he relied on his modern knowledge and strategic planning to defeat the giant.</p>
+<p>Using his advanced surveillance system and strategic vision, Odysseus and his crew devised a plan to blind the beast with a new invention - laser light - and attack with their harpoons and nets. His allies, the sea turtles and friendly dolphins, scouted out the best approach and identified potential threats. Helios warned of Poseidon's wrath, but Odysseus remained vigilant and brave.</p>
+<p>With the help of the sea nymph and Athena, they blinded the Cyclops and escaped. Despite Poseidon's fury at the loss of his son Polyphemus, Odysseus continued his journey with the support of Zeus and Athena.</p>
+<p>But their path was not yet clear - further challenges awaited. However, with his resourcefulness and strategic planning, Odysseus remained steadfast on his mission to return home to his beloved family and reclaim his rightful place as king. With renewed confidence and determination, they continued on their journey, relying on their allies and modern technology to overcome any obstacle in their path.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

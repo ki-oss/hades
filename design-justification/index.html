@@ -1,0 +1,1466 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../guides/performance/">
+      
+      
+      
+      <link rel="icon" href="../img/hades_white.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.30">
+    
+    
+      
+        <title>Design Justification - Hades</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.3cba04c6.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../custom-styles.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="red">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#hades-design-justification" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Hades" class="md-header__button md-logo" aria-label="Hades" data-md-component="logo">
+      
+  <img src="../img/hades_white.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Hades
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Design Justification
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ki-oss/hades" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ki-oss/hades
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Hades" class="md-nav__button md-logo" aria-label="Hades" data-md-component="logo">
+      
+  <img src="../img/hades_white.png" alt="logo">
+
+    </a>
+    Hades
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ki-oss/hades" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ki-oss/hades
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Usage Examples
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Usage Examples
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/simple-simulation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A Simple Simulation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/boids/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Boids and Visualisation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/multi-agent-llm-storytelling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Multi-Agent LLM storytelling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/battery-charging-station/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Battery Charging Station
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    API Reference
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            API Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api_reference/hades/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Hades
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api_reference/event/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Event
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api_reference/process/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Process
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api_reference/time/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Time Utilities
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api_reference/visualisation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Visualisation Utilities
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Guides
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Guides
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guides/visualisation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Visualising your Simulation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guides/performance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Improving Performance
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Misc
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Misc
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Design Justification
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Design Justification
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#original-goal-and-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      Original Goal and Problem
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Requirements
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#evaluation-of-candidate-solutions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Evaluation Of Candidate Solutions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Evaluation Of Candidate Solutions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kinds-of-simulations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kinds Of Simulations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#time-progression-should-be-next-event-based-satisfying-2b" class="md-nav__link">
+    <span class="md-ellipsis">
+      Time progression should be next-event based - satisfying 2.b
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-existing-frameworks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using existing frameworks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#taking-notes-from-game-development" class="md-nav__link">
+    <span class="md-ellipsis">
+      Taking notes from Game Development
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eventlifecycle-functions-arent-the-best-fit" class="md-nav__link">
+    <span class="md-ellipsis">
+      Event/Lifecycle functions aren't the best fit
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-observer-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Observer Pattern
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#event-queues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Event Queues
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#design-decisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Design Decisions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Design Decisions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-a-priority-queue" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use a Priority Queue
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#static-events-not-messages-or-dynamic-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      Static Events, not Messages or Dynamic Events
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#broadcast-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      Broadcast Events
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multiple-writer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multiple Writer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#event-grouping-and-async" class="md-nav__link">
+    <span class="md-ellipsis">
+      Event Grouping and Async
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#events-on-the-same-time-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      Events On The Same Time Step.
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caveats" class="md-nav__link">
+    <span class="md-ellipsis">
+      Caveats
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Caveats">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#state-is-not-shared" class="md-nav__link">
+    <span class="md-ellipsis">
+      State Is Not Shared
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loops-can-occur" class="md-nav__link">
+    <span class="md-ellipsis">
+      Loops Can Occur
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#everything-is-public" class="md-nav__link">
+    <span class="md-ellipsis">
+      Everything is public
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#its-not-very-battle-tested" class="md-nav__link">
+    <span class="md-ellipsis">
+      Its not very 'battle-tested'
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Further Reading
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#footnotes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Footnotes
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#original-goal-and-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      Original Goal and Problem
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Requirements
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#evaluation-of-candidate-solutions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Evaluation Of Candidate Solutions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Evaluation Of Candidate Solutions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kinds-of-simulations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kinds Of Simulations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#time-progression-should-be-next-event-based-satisfying-2b" class="md-nav__link">
+    <span class="md-ellipsis">
+      Time progression should be next-event based - satisfying 2.b
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-existing-frameworks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using existing frameworks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#taking-notes-from-game-development" class="md-nav__link">
+    <span class="md-ellipsis">
+      Taking notes from Game Development
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eventlifecycle-functions-arent-the-best-fit" class="md-nav__link">
+    <span class="md-ellipsis">
+      Event/Lifecycle functions aren't the best fit
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-observer-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Observer Pattern
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#event-queues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Event Queues
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#design-decisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Design Decisions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Design Decisions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-a-priority-queue" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use a Priority Queue
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#static-events-not-messages-or-dynamic-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      Static Events, not Messages or Dynamic Events
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#broadcast-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      Broadcast Events
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multiple-writer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multiple Writer
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#event-grouping-and-async" class="md-nav__link">
+    <span class="md-ellipsis">
+      Event Grouping and Async
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#events-on-the-same-time-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      Events On The Same Time Step.
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caveats" class="md-nav__link">
+    <span class="md-ellipsis">
+      Caveats
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Caveats">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#state-is-not-shared" class="md-nav__link">
+    <span class="md-ellipsis">
+      State Is Not Shared
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loops-can-occur" class="md-nav__link">
+    <span class="md-ellipsis">
+      Loops Can Occur
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#everything-is-public" class="md-nav__link">
+    <span class="md-ellipsis">
+      Everything is public
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#its-not-very-battle-tested" class="md-nav__link">
+    <span class="md-ellipsis">
+      Its not very 'battle-tested'
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Further Reading
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#footnotes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Footnotes
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="hades-design-justification">HADES - Design Justification<a class="headerlink" href="#hades-design-justification" title="Permanent link">&para;</a></h1>
+<h2 id="original-goal-and-problem">Original Goal and Problem<a class="headerlink" href="#original-goal-and-problem" title="Permanent link">&para;</a></h2>
+<p>The goal from which HADES originates is that of creating a framework which makes it easy to simulate how an insurance company's portfolio would 
+change over time given different scenarios. As these scenarios get more complex, problems begin to emerge:</p>
+<ol>
+<li>It becomes difficult to track state in a manageable way - e.g. needing to track which policies we have written and claims incurred in a simulated book to impact future portfolio management</li>
+<li>We begin coming across situations where we need to do simulation E.g. If one thing changes in the past, we can't ignore its effect on things which come after it. </li>
+</ol>
+<h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h2>
+<p>Given this goal, the requirements in more depth are as follows:</p>
+<ol>
+<li>
+<p>Functional requirements:</p>
+<ol>
+<li>It needs to simplify handling things which change over time</li>
+<li>It needs to have a convenient way of handling state - e.g. the state of policies should only be tracked by elements which care about policies</li>
+<li>It needs to be be easy to combine sources of data - e.g. combining real with generated quotes, historic broker behaviour with simulated behaviour, historic catastrophes with hypothetical ones</li>
+</ol>
+</li>
+<li>
+<p>Technical requirements - coming from the perspective of interacting with our existing software:</p>
+<ol>
+<li>It should be able to interact with distributed systems - e.g. calling services over the network which may or may not be running on the same physical or virtual machine</li>
+<li>It should reasonably fast (to enable its use in certain optimization approaches) - e.g. within the constraints of things having to happen in order, it should be as speedy as is relatively easily achievable</li>
+<li>It should be python based</li>
+</ol>
+</li>
+<li>
+<p>User experience requirements - coming from a 'designing software for humans' point of view:</p>
+<ol>
+<li>It should be as easy to understand and use as possible for users with limited software development experience</li>
+<li>It should be plug-in and play: users shouldn't need to understand the entirety of a simulation to alter or replace a component of it</li>
+<li>State should be encapsulated and it should be obvious where it should be.</li>
+</ol>
+</li>
+</ol>
+<h2 id="evaluation-of-candidate-solutions">Evaluation Of Candidate Solutions<a class="headerlink" href="#evaluation-of-candidate-solutions" title="Permanent link">&para;</a></h2>
+<p>Given these functional requirements, research was done on typical solutions to these kinds of problems. A full list of <a href="#further-reading">resources</a> is provided at the bottom.</p>
+<p>The main conclusions I came to from this are:</p>
+<h3 id="kinds-of-simulations">Kinds Of Simulations<a class="headerlink" href="#kinds-of-simulations" title="Permanent link">&para;</a></h3>
+<p>Considering various simulation approaches, a DES approach seemed to best fit the problem.</p>
+<p>Agent-Based models,approaches also seemed pretty applicable for some aspects, however when diving deeper into their handling of time and how they actually work as a simulation they
+seemed to either work similarly to DES approaches<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>, potentially making some alterations to where the <code>step()</code> occurs<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup>. </p>
+<p>The difference typically comes down to emphasis on 'emergent behaviour' and large numbers of instances of certain entities. On the analysis
+side this tends to lead to visualisations focusing on dynamics/interactions between agents as opposed to states of particular objects.</p>
+<p>Often DES can be used interchangeably with process based simulations, however here we use the broader meaning, leaving the model to userland.</p>
+<p>That is to say with the a DES core, Hades can be used for either agent based or process based models<sup id="fnref:14"><a class="footnote-ref" href="#fn:14">14</a></sup>.</p>
+<p>Other simulation approaches e.g. System Dynamics (too abstract to give concrete specific outputs) or Continuous (too difficult to build any reasonably complex and detailed model with) approaches seem to not be applicable. </p>
+<h3 id="time-progression-should-be-next-event-based-satisfying-2b">Time progression should be next-event based - satisfying 2.b<a class="headerlink" href="#time-progression-should-be-next-event-based-satisfying-2b" title="Permanent link">&para;</a></h3>
+<p>This means that if there are two events scheduled e.g. <span class="arithmatex">\(e_{1_{t_1}}\)</span> and <span class="arithmatex">\(e_{2_{t_3}}\)</span> the simulation framework, 
+after processing <span class="arithmatex">\(e_1\)</span> at <span class="arithmatex">\(t_1\)</span> will skip <span class="arithmatex">\(t_2\)</span> and immediately process <span class="arithmatex">\(e_2\)</span>. </p>
+<p>From a performance perspective this makes sense. The alternative - incremental time progression involves processing at every time-step,
+meaning unnecessary work. If this mode is needed events can be generated for each of the time steps anyway and thus is a special, less performant case of next-event based approaches. </p>
+<p>From a business perspective this makes sense too. Things in insurance typically happen with reasonable gaps between them.</p>
+<h3 id="using-existing-frameworks">Using existing frameworks<a class="headerlink" href="#using-existing-frameworks" title="Permanent link">&para;</a></h3>
+<p>Given the above, the best existing candidate seemed to be a python library (satisfying 2.c) called Simpy<sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup>. </p>
+<p>This library relies on python's <code>yield</code> keyword and generator functions to represent processes. It also has a nice functional design.</p>
+<p>However upon experimenting with it a little I found a few issues with it regarding the above requirements.</p>
+<p>From a technical perspective, 2.a would have been a bit difficult to achieve. This is because <code>Environment.process</code>, <code>start_delayed</code> etc are 'sync' coloured and I was considering that the best way to achieve 2.a and 2.b would be to gather events occurring at the same time-step so that they are executed asynchronously, allowing distributed elements to handle the concurrent processing. However this could probably be overcome by either subclassing/extending or using a fork called μSim<sup id="fnref:4"><a class="footnote-ref" href="#fn:4">4</a></sup>. </p>
+<p>More importantly though, having experimented with it for a while the user experience seemed like it would be suboptimal. </p>
+<p>Firstly, the <code>yield</code> keyword's behaviour is not always intuitive and anything which adds to cognitive load or makes the framework less accessible to newer to python users subtracts from 3.a. </p>
+<p>Secondly the way processes need communicate is either by having references to each other. E.g. in order for process <code>a</code> to call process <code>b</code>, we must pass a reference to <code>a</code> e.g. <code>a(b)</code>.  This means that there is an implicit hierarchy built into any design which makes achieving 3.b harder. </p>
+<p>Thirdly, how to manage state best is a little unclear. Classes in the documentation may include multiple processes<sup id="fnref:5"><a class="footnote-ref" href="#fn:5">5</a></sup> (so they can reference one another easier), or share state by mutating some mutable object passed to multiple functional processes by reference<sup id="fnref:6"><a class="footnote-ref" href="#fn:6">6</a></sup>. Violating 3.c</p>
+<h3 id="taking-notes-from-game-development">Taking notes from Game Development<a class="headerlink" href="#taking-notes-from-game-development" title="Permanent link">&para;</a></h3>
+<p>Games are real-time, dynamic, interactive computer simulations<sup id="fnref:7"><a class="footnote-ref" href="#fn:7">7</a></sup>. They are also large pieces of software contributed to by big, distributed teams who, often by necessity, cannot be aware of the full system (satisfying 3.b). It is often scripted by Game Designers who are not necessarily experienced as engineers<sup id="fnref:8"><a class="footnote-ref" href="#fn:8">8</a></sup> (satisfying 3.a). Given this, we can probably learn a lot from looking at patterns used in Game Development. </p>
+<h3 id="eventlifecycle-functions-arent-the-best-fit">Event/Lifecycle functions aren't the best fit<a class="headerlink" href="#eventlifecycle-functions-arent-the-best-fit" title="Permanent link">&para;</a></h3>
+<p>At the most basic level game engine loops (even more generally rendering loops) are a <code>while</code> loop which will often call some event functions of registered components (hollywood style)<sup id="fnref:9"><a class="footnote-ref" href="#fn:9">9</a></sup>. This approach is used by the popular Unity framework<sup id="fnref:10"><a class="footnote-ref" href="#fn:10">10</a></sup>. While this makes implementing components very easy, there is essentially a lack of extensibility in terms of adding different types of events since to know when to call them. It is best for systems with a fixed set of events which can occur in a loop like unity's main loop or event more simply - Ogre's<sup id="fnref:11"><a class="footnote-ref" href="#fn:11">11</a></sup>.</p>
+<h3 id="the-observer-pattern">The Observer Pattern<a class="headerlink" href="#the-observer-pattern" title="Permanent link">&para;</a></h3>
+<p>Looking at other patterns used in Game Development, the classic Observer Pattern<sup id="fnref:12"><a class="footnote-ref" href="#fn:12">12</a></sup> gives us some nice things. A small python implementation can be seen in <a href="#appendix-c">Appendix C</a> The decoupling of subjects from observers makes state management easier, it is natural for subjects to not have a direct reference to a particular observer, stemming to some extent the temptation to share state. Subjects only have to take care of sending out events to their <code>Observers</code>, not who those observers are. The paradigm of having certain events which are passed about also makes for a somewhat extensible situation where events might be shared by different <code>Subjects</code>, and therefore satisfying requirement 3.b.</p>
+<p>However there are also some less desirable properties. Firstly the decoupling is not complete, observers have to know about their subjects. This inhibits 3.b as components of the system become less interchangeable, and makes 3.c a bit harder to achieve, and since both observers and subjects can 'see' each other, the potential for state not being encapsulated is there.</p>
+<blockquote>
+<p>To me, this is the difference between “observer” systems and “event” systems. With the former, you observe the thing that did something interesting. With the latter, you observe an object that represents the interesting thing that happened. -- Game Programming Patterns <sup id="fnref2:12"><a class="footnote-ref" href="#fn:12">12</a></sup></p>
+</blockquote>
+<p>A further difficulty is that observer pattern notifications typically happen instantly. There is no intermediary scheduling the events for a later point in time. </p>
+<p>Additionally sometimes a modelled entity would make most intuitive sense as being both a subject and an observer. </p>
+<h3 id="event-queues">Event Queues<a class="headerlink" href="#event-queues" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>A queue stores a series of notifications or requests in first-in, first-out order. Sending a notification enqueues the request and returns. The request processor then processes items from the queue at a later time. Requests can be handled directly or routed to interested parties. This decouples the sender from the receiver both statically and in time. -- Game Programming Patterns <sup id="fnref:13"><a class="footnote-ref" href="#fn:13">13</a></sup></p>
+</blockquote>
+<p>As can be seen from the above, the event queue pattern essentially fixes all of our issues with the observer pattern! Woo hoo!
+We will have observer like objects being notified of events and modifying their state based on them.</p>
+<p>However we need to make some modifications and design decisions before all our requirements are met.</p>
+<h2 id="design-decisions">Design Decisions<a class="headerlink" href="#design-decisions" title="Permanent link">&para;</a></h2>
+<p>Now we've settled on the pattern for the framework we need to make a few design decisions</p>
+<h3 id="use-a-priority-queue">Use a Priority Queue<a class="headerlink" href="#use-a-priority-queue" title="Permanent link">&para;</a></h3>
+<p>Unlike the event queue described above, First-In-First-Out is not what we want for a DES where events may be scheduled far before their occurrence or perhaps even at the same time step as it! What we
+want instead is a priority queue so that the events which will happen the soonest are at the front of it.</p>
+<h3 id="static-events-not-messages-or-dynamic-events">Static Events, not Messages or Dynamic Events<a class="headerlink" href="#static-events-not-messages-or-dynamic-events" title="Permanent link">&para;</a></h3>
+<p>So now we have a queue, what sort of things should we put on it? Dynamic events would be some sort of function which is queued and then executed (potentially altering some state) at a future time. This approach seems really tricky to trace and loses quite a lot of the nice properties regarding how plug-and-play things are. So let's rule this out.</p>
+<p>Static events and messages are quite similar, but messages are typically terser and more like commands intended to be used in a specific way rather than data rich events upon which receives can act as they please. Therefore static events seemed to make the most sense.</p>
+<h3 id="broadcast-events">Broadcast Events<a class="headerlink" href="#broadcast-events" title="Permanent link">&para;</a></h3>
+<p>Clearly in any reasonably complex simulation, events are going to need to be listened to by a few different processes. A single cast queue would not therefore make sense.</p>
+<p>Similarly a work-queue doesn't make sense, multiple processes may well be interested in the same events.</p>
+<p>Potentially processes could subscribe only to certain types of events but this would add complexity for very marginal computational gain compared to broadcast and ignore. It
+could also lead to patterns where certain processes only <em>don't</em> consume certain events because they are not subscribed to it making interoperability (will process p work in sim S) and parametrisation (which events it is subscribed to in some test) entangled. </p>
+<h3 id="multiple-writer">Multiple Writer<a class="headerlink" href="#multiple-writer" title="Permanent link">&para;</a></h3>
+<p>All processes can write events to the queue. This is in line with the plug-and-play aim of 3.b.</p>
+<h3 id="event-grouping-and-async">Event Grouping and Async<a class="headerlink" href="#event-grouping-and-async" title="Permanent link">&para;</a></h3>
+<p>Since we have the 2.a and 2.b requirements, we broadcast all the events for the next time-step with events out to all the processes asynchronously. This means that we process as much as we can concurrently
+(where the implementation of the event notification receiving code allows). CPU-bound tasks can be offloaded to external systems this way too.</p>
+<h3 id="events-on-the-same-time-step">Events On The Same Time Step.<a class="headerlink" href="#events-on-the-same-time-step" title="Permanent link">&para;</a></h3>
+<p>Small consideration, but we have the option here of only allowing future events or allowing events on the same time step too. Although the future one seems cleaner
+at first glance, it does mean that a lot of patterns involving 'timeless' process communication are prevented which seems like a sacrifice not worth making.</p>
+<h2 id="caveats">Caveats<a class="headerlink" href="#caveats" title="Permanent link">&para;</a></h2>
+<p>Obviously there are no free lunches and the framework as it is has some shortcomings</p>
+<h3 id="state-is-not-shared">State Is Not Shared<a class="headerlink" href="#state-is-not-shared" title="Permanent link">&para;</a></h3>
+<p>While I have been describing this as a feature, it also makes certain things harder and can lead to somewhat duplicate state in some cases. There are certain ways around this
+e.g. taking a leaf from Simpy's book and at process <code>__init__</code> time passing in some mutable data structure to multiple processes. However this is at-the-user's own peril and not forced or encouraged by the framework. However for immutable objects this is encouraged.</p>
+<h3 id="loops-can-occur">Loops Can Occur<a class="headerlink" href="#loops-can-occur" title="Permanent link">&para;</a></h3>
+<p>With processes reading and writing to the queue it is possible for feedback loops to occur ad infinitum. Sometimes this can be desirable and represent an existing feedback system, however in others, especially combined with the fact that same time step events are allowed, this could lead to undesired loops if not careful. </p>
+<p>Suggestion here is just to be careful and that debug level logs can help! </p>
+<h3 id="everything-is-public">Everything is public<a class="headerlink" href="#everything-is-public" title="Permanent link">&para;</a></h3>
+<p>Since all events are broadcast, there is, by default, no private communication, and processes have to enforce this by passing events with identifiers to indicate origin where necessary.</p>
+<h3 id="its-not-very-battle-tested">Its not very 'battle-tested'<a class="headerlink" href="#its-not-very-battle-tested" title="Permanent link">&para;</a></h3>
+<p>As a new framework, its not particularly battle tested and there may be more caveats to be uncovered! </p>
+<h2 id="further-reading">Further Reading<a class="headerlink" href="#further-reading" title="Permanent link">&para;</a></h2>
+<p>Some stuff not referenced in the footnotes which was interesting.</p>
+<ul>
+<li><a href="https://www.jasss.org/18/3/9.html">https://www.jasss.org/18/3/9.html</a> - paper comparing sim design approaches</li>
+<li><a href="https://a-b-street.github.io/docs/tech/trafficsim/discrete_event/index.html">https://a-b-street.github.io/docs/tech/trafficsim/discrete_event/index.html</a></li>
+<li><a href="https://heather.cs.ucdavis.edu/~matloff/SimCourse/PLN/SimIntro.pdf">https://heather.cs.ucdavis.edu/~matloff/SimCourse/PLN/SimIntro.pdf</a></li>
+<li><a href="https://www.brianstorti.com/the-actor-model/">https://www.brianstorti.com/the-actor-model/</a></li>
+<li><a href="https://www.youtube.com/watch?v=eZfj7LEFT98">https://www.youtube.com/watch?v=eZfj7LEFT98</a></li>
+<li><a href="https://www.didierboelens.com/2019/01/futures-isolates-event-loop/">https://www.didierboelens.com/2019/01/futures-isolates-event-loop/</a></li>
+<li><a href="https://users.cs.northwestern.edu/~agupta/_projects/networking/QueueSimulation/mm1.html">https://users.cs.northwestern.edu/~agupta/_projects/networking/QueueSimulation/mm1.html</a></li>
+</ul>
+<h2 id="footnotes">Footnotes<a class="headerlink" href="#footnotes" title="Permanent link">&para;</a></h2>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p><a href="https://github.com/eclab/mason/blob/master/mason/src/main/java/sim/engine/Schedule.java">The classic MASON framework</a>)&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p><a href="https://github.com/projectmesa/mesa/blob/main/mesa/time.py">Python's MESA framework</a>&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:3">
+<p><a href="https://simpy.readthedocs.io/en/latest/">Simpy documentation. The tutorial is pretty good and instructive</a>&#160;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:4">
+<p><a href="https://usim.readthedocs.io/en/latest/source/topics/simpy.html">μSim documentation</a>&#160;<a class="footnote-backref" href="#fnref:4" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+<li id="fn:5">
+<p><a href="https://simpy.readthedocs.io/en/latest/examples/machine_shop.html">Simpy machine shop example</a>&#160;<a class="footnote-backref" href="#fnref:5" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+</li>
+<li id="fn:6">
+<p><a href="https://simpy.readthedocs.io/en/latest/examples/movie_renege.html">Simpy movie renege example</a>&#160;<a class="footnote-backref" href="#fnref:6" title="Jump back to footnote 6 in the text">&#8617;</a></p>
+</li>
+<li id="fn:7">
+<p><a href="https://www.oreilly.com/library/view/game-engine-architecture/9781466560017/xhtml/ch07.xhtml">Great book on architecture of game engines</a>&#160;<a class="footnote-backref" href="#fnref:7" title="Jump back to footnote 7 in the text">&#8617;</a></p>
+</li>
+<li id="fn:8">
+<p><a href="https://qr.ae/prsAAZ">This distinction between scripting vs programming / Designer vs Engineer split is explained clearly in this Quora answer</a>&#160;<a class="footnote-backref" href="#fnref:8" title="Jump back to footnote 8 in the text">&#8617;</a></p>
+</li>
+<li id="fn:9">
+<p><a href="https://en.wikipedia.org/wiki/Inversion_of_control">Inversion of Control/Hollywood Principle</a>&#160;<a class="footnote-backref" href="#fnref:9" title="Jump back to footnote 9 in the text">&#8617;</a></p>
+</li>
+<li id="fn:10">
+<p><a href="https://docs.unity3d.com/Manual/ExecutionOrder.html">Nice diagram of Unity Execution of Events ordering</a>&#160;<a class="footnote-backref" href="#fnref:10" title="Jump back to footnote 10 in the text">&#8617;</a></p>
+</li>
+<li id="fn:11">
+<p><a href="https://github.com/OGRECave/ogre/blob/5a8a0c1164c7a455364656cf1e6d3ec478e6b55c/OgreMain/src/OgreRoot.cpp#L830-L859">Ogre's main render loop</a>&#160;<a class="footnote-backref" href="#fnref:11" title="Jump back to footnote 11 in the text">&#8617;</a></p>
+</li>
+<li id="fn:12">
+<p><a href="https://gameprogrammingpatterns.com/observer.html">Excellent article on the Observer Pattern in game programming</a>&#160;<a class="footnote-backref" href="#fnref:12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:12" title="Jump back to footnote 12 in the text">&#8617;</a></p>
+</li>
+<li id="fn:13">
+<p><a href="https://gameprogrammingpatterns.com/event-queue.html">Excellent article on Event Queues in game programming</a>&#160;<a class="footnote-backref" href="#fnref:13" title="Jump back to footnote 13 in the text">&#8617;</a></p>
+</li>
+<li id="fn:14">
+<p><a href="https://www.anylogic.com/upload/books/new-big-book/2-three-methods-in-simulation-modeling.pdf">Any Logic Whitepaper</a>&#160;<a class="footnote-backref" href="#fnref:14" title="Jump back to footnote 14 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.sections"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
