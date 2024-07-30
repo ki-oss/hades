@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "hades-framework"
-version = "1.0.4"
+version = "2.0.0"
 description = "Hades Asynchronous Discrete-Event Simulation"
 authors = ["Ki Insurance Team", "Reuben Thomas-Davis <Reuben.Thomas-Davis@ki-insurance.com>", "Keith Kam <keith.kam@accenture.com>"]
 license = "Apache License 2.0"
@@ -15,7 +15,7 @@ priority = "primary"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-pydantic = "^1.10.8"
+pydantic = "^2.8.2"
 networkx = {version = "^3.1", optional = true}
 networkx-stubs = {version = "^0.0.1", optional = true}
 websockets = "^11.0.3"
@@ -36,7 +36,6 @@ pymdown-extensions = "^10.0.1"
 openai = "^0.27.7"
 httpx = "^0.24.1"
 tiktoken = ">=0.3.0"
-gpt-json = "^0.1.10"
 feedparser = "^6.0.10"
 pycln = "^2.1.5"
 

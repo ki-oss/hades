@@ -46,7 +46,7 @@ class EventContext(BaseModel):
     target_process: ProcessDetails
     event: EventWithType
     target_process_response: NotificationResponse
-    causing_event: EventWithType | None
+    causing_event: EventWithType | None = None
 
 
 class WebSocketProcess(Process):
@@ -59,7 +59,9 @@ class WebSocketProcess(Process):
         super().__init__()
 
     async def _send_event(self, event: Event):
-        await self._connection.send(EventWithType.construct(event_type=event.name, event_contents=event).json())
+        await self._connection.send(
+            EventWithType.model_construct(event_type=event.name, event_contents=event).model_dump_json()
+        )
 
     async def notify(self, event: Event):
         match event:
@@ -111,7 +113,7 @@ class HadesWS(Hades):
 
     async def _handle_event_results(
         self,
-        results: list[NotificationResponse | Exception],
+        results: list[NotificationResponse | BaseException],
         event_source_targets: list[EventSourceTargetCause],
     ):
         """asynchronously rebroadcast all event results to all ws clients"""
@@ -123,11 +125,11 @@ class HadesWS(Hades):
                         asyncio.wait_for(
                             client.send(
                                 EventContext(
-                                    source_process=ProcessDetails.construct(
+                                    source_process=ProcessDetails.model_construct(
                                         process_name=source_process.process_name,
                                         instance_identifier=source_process.instance_identifier,
                                     ),
-                                    target_process=ProcessDetails.construct(
+                                    target_process=ProcessDetails.model_construct(
                                         process_name=target_process.process_name,
                                         instance_identifier=target_process.instance_identifier,
                                     ),
@@ -138,7 +140,7 @@ class HadesWS(Hades):
                                         if causing_event is None
                                         else EventWithType(event_type=causing_event.name, event_contents=causing_event)
                                     ),
-                                ).json()
+                                ).model_dump_json()
                             ),
                             timeout=self._batch_event_notification_timeout,
                         )

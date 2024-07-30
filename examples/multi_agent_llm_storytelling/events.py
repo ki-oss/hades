@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 from hades import Event
 
@@ -20,9 +20,7 @@ from hades import Event
 class CharacterAction(BaseModel):
     location: str
     action_description: str
-
-    class Config:
-        frozen = True
+    model_config = ConfigDict(frozen=True)
 
 
 class StoryUnfolded(Event):

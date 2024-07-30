@@ -18,7 +18,7 @@ import logging
 import sys
 from typing import Union
 
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 from hades import Event, Hades, NotificationResponse, PredefinedEventAdder, Process
 from hades.visualisation.websockets import HadesWS
@@ -64,8 +64,7 @@ class BoidMovement(BaseModel):
 
 
 class ImmutableMovement(BoidMovement):
-    class Config:
-        frozen = True
+    model_config = ConfigDict(frozen=True)
 
 
 class BoidMoved(Event):
@@ -268,13 +267,11 @@ class BoidMovementHistory(Process):
                     self._worm_history.append(list(self._worms_alive.values()))
                     self._boid_history.append([])
                     self._current_t = t
-                self._boid_history[-1].append(
-                    {
-                        "boid_id": boid_id,
-                        "movement": movement.dict(),
-                        "full": boid_id in self._fed_boids,
-                    }
-                )
+                self._boid_history[-1].append({
+                    "boid_id": boid_id,
+                    "movement": movement.dict(),
+                    "full": boid_id in self._fed_boids,
+                })
 
                 return NotificationResponse.ACK
             case WormPopsHisHeadUp(t=t, worm_position=position, worm_id=worm_id):
